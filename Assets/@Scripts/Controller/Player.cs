@@ -7,8 +7,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using static Define;
+using static UnityEngine.UI.GridLayoutGroup;
 
-public class Hero : Creature
+public class Player : Creature
 {
     #region Data
     public Data.PlayerData PlayerData { get; private set; }
@@ -26,7 +27,6 @@ public class Hero : Creature
 
     public override bool Init()
     {
-        //Debug.LogWarning($"Hero.Init() »£√‚µ \n{Environment.StackTrace}");
         if (base.Init() == false)
             return false;
 
@@ -46,8 +46,8 @@ public class Hero : Creature
     public override void Update()
     {
         base.Update();
+        HandleCoyoteTime();
         HandleBufferedInput();
-        HandleHoldInput();
     }
 
     public void FixedUpdate()
@@ -67,11 +67,25 @@ public class Hero : Creature
         //_stateMachine.ChangeState(_idleState);
     }
 
-
     #region Input System
-    public float _lastSkillTime { get; set; }
-    float _repeatDelay = 0.3f;
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        Horizontal = context.ReadValue<Vector2>().x;
+    }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        BufferInput(ESkillSlot.Jump);
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        BufferInput(ESkillSlot.Dash);
+    }
+    #endregion
+
+    #region Input Buffering
+    public float _lastSkillTime { get; set; }
     public struct BufferedInput
     {
         public ESkillSlot Slot;
@@ -89,7 +103,23 @@ public class Hero : Creature
             Time = Time.time
         });
     }
+    public void HandleBufferedInput()
+    {
+        if (TryConsumeBufferInput(CanUse, out ESkillSlot slot) == false)
+            return;
 
+        if (slot == ESkillSlot.Jump)
+        {
+            //_stateMachine.ChangeState(_jumpState);
+            return;
+        }
+
+        if (slot == ESkillSlot.Dash)
+        {
+            //_stateMachine.ChangeState(_dashState);
+            return;
+        }
+    }
     public bool TryConsumeBufferInput(Func<ESkillSlot, bool> canUse, out ESkillSlot slot)
     {
         slot = ESkillSlot.None;
@@ -116,41 +146,14 @@ public class Hero : Creature
         return false;
     }
 
-    public void HandleHoldInput()
+    public bool CanUse(ESkillSlot slot)
     {
-        foreach (var pair in _inputPressed)
-        {
-            ESkillSlot slot = pair.Key;
-            bool isPressed = pair.Value;
+        if (slot == ESkillSlot.Jump)
+            return CanJump();
+        if (slot == ESkillSlot.Dash)
+            return false;
 
-            if (!isPressed)
-                continue;
-
-            //if (!Owner._lastInputTime.TryGetValue(slot, out float lastTime))
-            //continue;
-
-            if (Time.time - _lastInputTime[slot] < _repeatDelay)
-                continue;
-            _lastInputTime[slot] = Time.time;
-
-            BufferInput(slot);
-        }
-    }
-
-    public void HandleBufferedInput()
-    {
-        if (TryConsumeBufferInput(CanUseSkill, out ESkillSlot slot) == false)
-            return;
-
-        if (slot == ESkillSlot.C)
-        {
-            
-        }
-
-        if (slot == ESkillSlot.F)
-        {
-            
-        }
+        return true;
     }
 
     public bool CanJump()
@@ -159,23 +162,52 @@ public class Hero : Creature
             HasJumped == false &&
             CreatureState != ECreatureState.Airborne;
     }
-    public bool CanUseSkill(ESkillSlot slot)
+
+    public void HandleCoyoteTime()
     {
-        return true;
+        if (IsGrounded)
+        {
+            CoyoteTimeCounter = 0.5f;
+            HasJumped = false;
+        }
+        else
+        {
+            CoyoteTimeCounter -= Time.deltaTime;
+        }
     }
+    #endregion
 
-    /*
-    public void OnMove(InputAction.CallbackContext context) => _stateMachine?.OnMove(context);
-    public void OnJump(InputAction.CallbackContext context) => _stateMachine?.OnJump(context);
-    public void OnDash(InputAction.CallbackContext context) => _stateMachine?.OnDash(context);
+    #region Move
+    public void HorizontalMove()
+    {
+        float targetSpeed = Horizontal * MoveSpeed;
 
-    // Skill
-    public void OnZSkill(InputAction.CallbackContext context) => _stateMachine?.OnZSkill(context);
-    public void OnXSkill(InputAction.CallbackContext context) => _stateMachine?.OnXSkill(context);
-    public void OnASkill(InputAction.CallbackContext context) => _stateMachine?.OnASkill(context);
-    public void OnSSkill(InputAction.CallbackContext context) => _stateMachine?.OnSSkill(context);
-    public void OnDSkill(InputAction.CallbackContext context) => _stateMachine?.OnDSkill(context);
-    public void OnFSkill(InputAction.CallbackContext context) => _stateMachine?.OnFSkill(context);
-    */
+        float accel = IsGrounded
+            ? Acceleration
+            : Acceleration * 0.8f;
+
+        float decel = IsGrounded
+            ? Deceleration
+            : Deceleration * 0.8f;
+
+        float currentSpeed = Rigidbody.linearVelocityX;
+
+        if (Mathf.Abs(targetSpeed) > 0.01f)
+        {
+            currentSpeed = Mathf.MoveTowards(
+                currentSpeed,
+                targetSpeed,
+                accel * Time.fixedDeltaTime);
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(
+                currentSpeed,
+                0f,
+                decel * Time.fixedDeltaTime);
+        }
+
+        Rigidbody.linearVelocityX = currentSpeed;
+    }
     #endregion
 }

@@ -64,6 +64,8 @@ public class Creature : BaseObject
     public float MaxHp {  get; protected set; }
     public float MoveSpeed { get; set; }
     public float JumpSpeed { get; set; }
+    public float Acceleration { get; set; }
+    public float Deceleration { get; set; }
     #endregion
 
     public override bool Init()
@@ -92,8 +94,8 @@ public class Creature : BaseObject
             WallCheck = obj.transform;
         }
 
-        // Collider ÀÌ¸§À» µ¥ÀÌÅÍ »ó HitBox·Î ¸¸µé¾î¹ö·Á¼­, ÇÇ°İ ÆÇÁ¤ ÀÌ¸§À» HitCircle·Î ÁöÀ½
-        // ±×·¡¼­ ÀÌ¸§Àº CircleÀÎµ¥ ÇüÅÂ´Â BoxÀÓ (°³¹ß ÃÊ±â¿¡´Â ÇüÅÂµµ CircleÀÌ¾úÀ½)
+        // Collider ì´ë¦„ì„ ë°ì´í„° ìƒ HitBoxë¡œ ë§Œë“¤ì–´ë²„ë ¤ì„œ, í”¼ê²© íŒì • ì´ë¦„ì„ HitCircleë¡œ ì§€ìŒ
+        // ê·¸ë˜ì„œ ì´ë¦„ì€ Circleì¸ë° í˜•íƒœëŠ” Boxì„ (ê°œë°œ ì´ˆê¸°ì—ëŠ” í˜•íƒœë„ Circleì´ì—ˆìŒ)
         HitCheck = transform.Find("@hitCircle");
         if (HitCheck == null)
         {
@@ -142,7 +144,7 @@ public class Creature : BaseObject
         if (spriteRenderer == null)
             spriteRenderer = gameObject.GetOrAddComponent<SpriteRenderer>();
 
-        // Player·Î ¿Å±âÀÚ.
+        // Playerë¡œ ì˜®ê¸°ì.
         Creature creature = gameObject.GetComponent<Creature>();
         switch (creature.CreatureType)
         {
@@ -165,6 +167,8 @@ public class Creature : BaseObject
         Hp = CreatureData.MaxHp;
         MoveSpeed = CreatureData.MoveSpeed;
         JumpSpeed = CreatureData.JumpSpeed;
+        Acceleration = CreatureData.Acceleration;
+        Deceleration = CreatureData.Deceleration;
 
         // State
         CreatureState = ECreatureState.Idle;
