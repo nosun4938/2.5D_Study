@@ -6,7 +6,7 @@ using static Define;
 public class ObjectManager
 {
     //public HashSet<Hero> Heroes { get; } = new HashSet<Hero>();
-    //public Player Player { get; private set; }
+    public Player Player { get; private set; }
 
 
     #region Roots
@@ -42,10 +42,9 @@ public class ObjectManager
             switch (creature.CreatureType)
             {
                 case ECreatureType.Player:
-                    Debug.Log("Hero Spawn");
-                    //Hero hero = creature as Hero;
-                    //Player = hero;
-                    //hero.InitVector = position;
+                    Debug.Log("Player Spawn");
+                    Player player = creature as Player;
+                    Player = player;
                     break;
             }
 

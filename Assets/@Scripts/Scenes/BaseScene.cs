@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using static Define;
 
 public abstract class BaseScene : InitBase
@@ -16,7 +17,7 @@ public abstract class BaseScene : InitBase
         {
             GameObject go = new GameObject() { name = "@EventSystem" };
             go.AddComponent<EventSystem>();
-            go.AddComponent<StandaloneInputModule>();
+            go.AddComponent<InputSystemUIInputModule>();
         }
 
         return true;

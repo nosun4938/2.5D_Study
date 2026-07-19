@@ -1,0 +1,42 @@
+{
+  "players": [
+    {
+      "DataID": 202001,
+      "DescriptionTextID": "Player",
+      "PrefabLabel": "Player",
+      "AnimatorName": "PedroAnimationController",
+
+      "DropItemId": 0,
+
+      "Mass": 1.0,
+      "MaxHp": 100.0,
+      "MoveSpeed": 40.0,
+      "JumpSpeed": 40.0,
+      "Acceleration": 20.0,
+      "Deceleration": 20.0,
+
+      "HitBox": {
+        "Offset": {
+          "x": 0,
+          "y": 3.5
+        },
+        "Size": {
+          "x": 3,
+          "y": 7
+        },
+        "TargetLayer": "Enemy"
+      },
+      "HitCircle": {
+        "Offset": {
+          "x": 0.25,
+          "y": 3.25
+        },
+        "Size": {
+          "x": 2,
+          "y": 7
+        },
+        "TargetLayer": "Enemy"
+      }
+    }
+  ]
+}
