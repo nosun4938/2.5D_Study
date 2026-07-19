@@ -40,10 +40,6 @@ public static class Define
     {
         None,
         Creature,
-        Hero,
-        Monster,
-        Boss,
-        Artifact,
         Interaction,
         Item,
     }

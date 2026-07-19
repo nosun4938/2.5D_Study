@@ -15,9 +15,6 @@ public class Player : Creature
     public Data.PlayerData PlayerData { get; private set; }
     #endregion
     #region Variables
-    Dictionary<ESkillSlot, bool> _inputPressed = new();
-    Dictionary<ESkillSlot, float> _lastInputTime = new();
-
     public bool HasJumped { get; set; } = false;
     public bool IsJumpPressed { get; set; } = false;
     
@@ -25,20 +22,25 @@ public class Player : Creature
     public float JumpBufferTimeCounter { get; set; }
     #endregion
 
+    #region StateMachine
+    PlayerStateMachine _stateMachine;
+
+    // Skills
+    Player_Ground _groundState;
+    #endregion
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
-        // Input System
-        foreach (ESkillSlot slot in Enum.GetValues(typeof(ESkillSlot)))
-        {
-            _inputPressed[slot] = false;
-        }
-
         // Layer
         gameObject.layer = LayerMask.NameToLayer("Player");
         CreatureType = ECreatureType.Player;
+
+        // StateMachine
+        _stateMachine = new PlayerStateMachine(this);
+        _groundState = new(this, _stateMachine);
 
         return true;
     }
@@ -48,11 +50,13 @@ public class Player : Creature
         base.Update();
         HandleCoyoteTime();
         HandleBufferedInput();
+
+        _stateMachine?.Update();
     }
 
     public void FixedUpdate()
     {
-
+        _stateMachine?.FixedUpdate();
     }
 
     public override void SetInfo(int templateID)
@@ -60,17 +64,15 @@ public class Player : Creature
         base.SetInfo(templateID);
         PlayerData = CreatureData as PlayerData;
 
-        // State
-        CreatureState = ECreatureState.Idle;
-
         // State Machine
-        //_stateMachine.ChangeState(_idleState);
+        _stateMachine.ChangeState(_groundState);
     }
 
     #region Input System
     public void OnMove(InputAction.CallbackContext context)
     {
         Horizontal = context.ReadValue<Vector2>().x;
+        Debug.Log($"{Horizontal}");
     }
 
     public void OnJump(InputAction.CallbackContext context)

@@ -144,9 +144,8 @@ public class Creature : BaseObject
         if (spriteRenderer == null)
             spriteRenderer = gameObject.GetOrAddComponent<SpriteRenderer>();
 
-        // Player로 옮기자.
-        Creature creature = gameObject.GetComponent<Creature>();
-        switch (creature.CreatureType)
+        // Sorting Layer
+        switch (CreatureType)
         {
             case ECreatureType.Player:
                 spriteRenderer.sortingOrder = SortingLayers.HERO;

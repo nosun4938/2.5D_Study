@@ -9,6 +9,8 @@ public class PlayerStateBase
         Owner = owner;
         _stateMachine = stateMachine;
     }
+
+    protected string CurrentAnimName { get; set; }
     public virtual void Enter()
     {
         
@@ -24,7 +26,7 @@ public class PlayerStateBase
     }
     public virtual void FixedUpdate()
     {
-        Owner.HorizontalMove();
+        
     }
     public virtual void ReEnter()
     {

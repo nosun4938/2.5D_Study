@@ -12,8 +12,8 @@
       "MaxHp": 100.0,
       "MoveSpeed": 40.0,
       "JumpSpeed": 40.0,
-      "Acceleration": 20.0,
-      "Deceleration": 20.0,
+      "Acceleration": 500.0,
+      "Deceleration": 500.0,
 
       "HitBox": {
         "Offset": {
