@@ -8,13 +8,22 @@ public class Player_Ground : PlayerStateBase
     public override void Enter()
     {
         base.Enter();
-        
-        EnterIdle();
+
+        if (Owner.ChangeReason == EStateChangeReason.Land)
+            EnterLand();
+        else
+            EnterIdle();
     }
 
     public override void Update()
     {
         base.Update();
+
+        if (!Owner.IsGrounded)
+        {
+            Owner.ChangeReason = EStateChangeReason.Fall;
+            _stateMachine.ChangeState(Owner._airState);
+        }
 
         switch (Owner.CreatureState)
         {
@@ -23,6 +32,7 @@ public class Player_Ground : PlayerStateBase
             case ECreatureState.RunMid: UpdateRunMid(); break;
             case ECreatureState.Stop: UpdateStop(); break;
             case ECreatureState.Turn: UpdateTurn(); break;
+            case ECreatureState.Land: UpdateLand(); break;
         }
     }
     public override void FixedUpdate()
@@ -34,16 +44,15 @@ public class Player_Ground : PlayerStateBase
 
     // Sub States
     #region Input helpers
-    private const float InputDeadZone = 0.01f;
-    private bool HasInput => Mathf.Abs(Owner.Horizontal) > InputDeadZone;
-    private bool InputRight => Owner.Horizontal > InputDeadZone;
-    private bool InputLeft => Owner.Horizontal < -InputDeadZone;
+    private bool HasInput => Mathf.Abs(Owner.Horizontal) > 0;
+    private bool InputRight => Owner.Horizontal > 0;
     private bool IsOppositeInput => HasInput && (InputRight != Owner.LookRight);
     #endregion
     
     #region Idle
     private void EnterIdle()
     {
+        Debug.Log("Enter Idle");
         Owner.CreatureState = ECreatureState.Idle;
         PlayAnimation("Idle");
     }
@@ -52,25 +61,23 @@ public class Player_Ground : PlayerStateBase
     {
         if (Owner.Horizontal != 0)
         {
-            Owner.LookRight = Owner.Horizontal > 0;
             EnterRunStart();
             return;
         }
+        Owner.LookDirection();
     }
     #endregion
 
     #region RunStart
     private void EnterRunStart()
     {
+        Debug.Log("Enter RunStart");
         Owner.CreatureState = ECreatureState.RunStart;
         PlayAnimation("Run_Start");
     }
 
     private void UpdateRunStart()
     {
-        if (Owner.Horizontal != 0)
-            Owner.LookRight = Owner.Horizontal > 0;
-
         // To Turn
         if (IsOppositeInput)
         {
@@ -87,22 +94,25 @@ public class Player_Ground : PlayerStateBase
 
         // To RunMid
         if (IsAnimFinished())
+        {
             EnterRunMid();
+            return;
+        }
+
+        Owner.LookDirection();
     }
     #endregion
 
     #region RunMid
     private void EnterRunMid()
     {
+        Debug.Log("Enter RunMid");
         Owner.CreatureState = ECreatureState.RunMid;
         PlayAnimation("Run_Mid");
     }
 
     private void UpdateRunMid()
     {
-        if (Owner.Horizontal != 0)
-            Owner.LookRight = Owner.Horizontal > 0;
-
         // To Turn
         if (IsOppositeInput)
         {
@@ -112,22 +122,25 @@ public class Player_Ground : PlayerStateBase
 
         // To Stop
         if (HasInput == false)
+        {
             EnterStop();
+            return;
+        }
+
+        Owner.LookDirection();
     }
     #endregion
 
     #region Stop
     private void EnterStop()
     {
+        Debug.Log("Enter Stop");
         Owner.CreatureState = ECreatureState.Stop;
         PlayAnimation("Stop");
     }
 
     private void UpdateStop()
     {
-        if (Owner.Horizontal != 0)
-            Owner.LookRight = Owner.Horizontal > 0;
-
         // To RunStart
         if (HasInput && InputRight == Owner.LookRight)
         {
@@ -143,13 +156,19 @@ public class Player_Ground : PlayerStateBase
         }
 
         if (IsAnimFinished())
+        {
             EnterIdle();
+            return;
+        }
+
+        Owner.LookDirection();
     }
     #endregion
 
     #region Turn
     private void EnterTurn()
     {
+        Debug.Log("Enter Turn");
         Owner.CreatureState = ECreatureState.Turn;
         PlayAnimation("Turn");
     }
@@ -160,7 +179,7 @@ public class Player_Ground : PlayerStateBase
             return;
 
         // To RunMid
-        if (HasInput && InputRight == Owner.LookRight)
+        if (HasInput && InputRight != Owner.LookRight)
         {
             Owner.LookRight = !Owner.LookRight;
             EnterRunMid();
@@ -176,4 +195,31 @@ public class Player_Ground : PlayerStateBase
     }
     #endregion
 
+    #region Land
+    private void EnterLand()
+    {
+        Debug.Log("Enter Land");
+        Owner.CreatureState = ECreatureState.Land;
+        PlayAnimation("Land");
+    }
+
+    private void UpdateLand()
+    {
+        // To RunStart
+        if (Owner.Horizontal != 0)
+        {
+            EnterRunStart();
+            return;
+        }
+        
+        // To Idle
+        if (IsAnimFinished() == true)
+        {
+            EnterIdle();
+            return;
+        }
+
+        Owner.LookDirection();
+    }
+    #endregion
 }

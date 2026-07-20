@@ -24,9 +24,11 @@ public class Player : Creature
 
     #region StateMachine
     PlayerStateMachine _stateMachine;
+    public EStateChangeReason ChangeReason { get; set; }
 
-    // Skills
-    Player_Ground _groundState;
+    // Movements
+    public Player_Ground _groundState { get; private set; }
+    public Player_Air _airState { get; private set; }
     #endregion
 
     public override bool Init()
@@ -41,6 +43,7 @@ public class Player : Creature
         // StateMachine
         _stateMachine = new PlayerStateMachine(this);
         _groundState = new(this, _stateMachine);
+        _airState = new(this, _stateMachine);
 
         return true;
     }
@@ -76,7 +79,15 @@ public class Player : Creature
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        BufferInput(ESkillSlot.Jump);
+        if (context.performed)
+        {
+            IsJumpPressed = true;
+            BufferInput(ESkillSlot.Jump);
+        }
+        else if (context.canceled)
+        {
+            IsJumpPressed = false;
+        }
     }
 
     public void OnDash(InputAction.CallbackContext context)
@@ -94,7 +105,7 @@ public class Player : Creature
     }
 
     private List<BufferedInput> _inputBuffer = new List<BufferedInput>();
-    private float _inputBufferTime = 0.2f;
+    private float _inputBufferTime = 1.0f;
 
     public void BufferInput(ESkillSlot slot)
     {
@@ -111,7 +122,8 @@ public class Player : Creature
 
         if (slot == ESkillSlot.Jump)
         {
-            //_stateMachine.ChangeState(_jumpState);
+            ChangeReason = EStateChangeReason.Jump;
+            _stateMachine.ChangeState(_airState);
             return;
         }
 
@@ -141,6 +153,8 @@ public class Player : Creature
 
             slot = input.Slot;
             _inputBuffer.RemoveAt(i);
+            Debug.Log($"{slot} is Used");
+
             return true;
         }
 
@@ -160,8 +174,7 @@ public class Player : Creature
     public bool CanJump()
     {
         return CoyoteTimeCounter > 0f &&
-            HasJumped == false &&
-            CreatureState != ECreatureState.Airborne;
+            HasJumped == false;
     }
 
     public void HandleCoyoteTime()
@@ -209,6 +222,12 @@ public class Player : Creature
         }
 
         Rigidbody.linearVelocityX = currentSpeed;
+    }
+
+    public void LookDirection()
+    {
+        if (Horizontal != 0)
+            LookRight = Horizontal > 0;
     }
     #endregion
 }

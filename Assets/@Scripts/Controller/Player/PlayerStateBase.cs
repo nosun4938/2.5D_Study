@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Define;
 
 public class PlayerStateBase
 {
@@ -10,15 +11,16 @@ public class PlayerStateBase
         _stateMachine = stateMachine;
     }
 
-    protected string CurrentAnimName { get; set; }
+    public string CurrentAnimName { get; set; }
     public virtual void Enter()
     {
-        
+        Owner.Rigidbody.gravityScale = 3.0f;
     }
 
     public virtual void Exit()
     {
         Owner.Rigidbody.gravityScale = 3.0f;
+        CurrentAnimName = null;
     }
     public virtual void Update()
     {

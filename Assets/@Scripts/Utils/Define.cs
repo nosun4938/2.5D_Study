@@ -80,15 +80,26 @@ public static class Define
         Stop,
         Turn,
 
-        Dash,
         Jump,
+        Fall,
+        Land,
+
+        Dash,
         Crouch,
         Dead,
 
-        Hitstun, //굳이 필요한가?
+        Hitstun,
         Stagger,
         Airborne,
         Knockdown,
+    }
+
+    public enum EStateChangeReason
+    {
+        None,
+        Jump,
+        Fall,
+        Land,
     }
 
     public enum EMonsterAIState
