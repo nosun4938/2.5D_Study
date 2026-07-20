@@ -14,13 +14,13 @@ public class BaseObject : InitBase
     
     public int DataTemplateID { get; set; }
 
-    bool _lookLeft = true;
-    public bool LookLeft
+    bool _lookRight = true;
+    public bool LookRight
     {
-        get { return _lookLeft; }
+        get { return _lookRight; }
         set
         {
-            _lookLeft = value;
+            _lookRight = value;
             Flip(!value);
         }
     }
@@ -34,16 +34,6 @@ public class BaseObject : InitBase
         Animator = GetComponent<Animator>();
         Rigidbody = gameObject.GetOrAddComponent<Rigidbody2D>();
         return true;
-    }
-
-    public void TranslateEx(Vector3 dir)
-    {
-        transform.Translate(dir);
-
-        if (dir.x < 0)
-            LookLeft = true;
-        else if (dir.x > 0)
-            LookLeft = false;
     }
 
     #region Animation

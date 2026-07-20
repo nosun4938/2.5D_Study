@@ -33,4 +33,21 @@ public class PlayerStateBase
         Exit();
         Enter();
     }
+
+    #region Animation Helpers
+    protected void PlayAnimation(string animName)
+    {
+        if (CurrentAnimName == animName)
+            return;
+
+        CurrentAnimName = animName;
+        Owner.Animator.Play(animName, 0, 0f);
+    }
+
+    protected bool IsAnimFinished()
+    {
+        var info = Owner.Animator.GetCurrentAnimatorStateInfo(0);
+        return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
+    }
+    #endregion
 }

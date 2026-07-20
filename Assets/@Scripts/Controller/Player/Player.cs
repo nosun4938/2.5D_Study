@@ -72,7 +72,6 @@ public class Player : Creature
     public void OnMove(InputAction.CallbackContext context)
     {
         Horizontal = context.ReadValue<Vector2>().x;
-        Debug.Log($"{Horizontal}");
     }
 
     public void OnJump(InputAction.CallbackContext context)

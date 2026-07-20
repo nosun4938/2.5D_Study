@@ -75,6 +75,11 @@ public static class Define
     {
         None,
         Idle,
+        RunStart,
+        RunMid,
+        Stop,
+        Turn,
+
         Dash,
         Jump,
         Crouch,
