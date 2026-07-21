@@ -203,8 +203,8 @@ public static class Define
     [Serializable]
     public class HitBoxData
     {
-        public Vector2 Offset;
-        public Vector2 Size;
+        public Vector3 Offset;
+        public Vector3 Size;
         public string TargetLayer;
     }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Prefabs
   m_GUID: 2ce770d7ba8490b46988bfb57a2215e6
   m_SerializeEntries:
-  - m_GUID: 3fa2118597a5d2c49bcca59143988e20
+  - m_GUID: fa81d57eb6d027b4497e744a5c5211f0
     m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels:

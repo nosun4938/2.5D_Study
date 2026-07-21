@@ -67,4 +67,26 @@ public static class Extension
     {
         rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
     }
+
+    // Rigidbody
+    public static void SetVelocityX(this Rigidbody rb, float x)
+    {
+        Vector3 v = rb.linearVelocity;
+        v.x = x;
+        rb.linearVelocity = v;
+    }
+
+    public static void SetVelocityY(this Rigidbody rb, float y)
+    {
+        Vector3 v = rb.linearVelocity;
+        v.y = y;
+        rb.linearVelocity = v;
+    }
+
+    public static void SetVelocityZ(this Rigidbody rb, float z)
+    {
+        Vector3 v = rb.linearVelocity;
+        v.z = z;
+        rb.linearVelocity = v;
+    }
 }

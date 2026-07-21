@@ -9,7 +9,7 @@ public class BaseObject : InitBase
     public EObjectType ObjectType { get; protected set; } = EObjectType.None;
     public SpriteRenderer SpriteRenderer { get; private set; }
     public Animator Animator { get; private set; }
-    public Rigidbody2D Rigidbody { get; private set; }
+    public Rigidbody Rigidbody { get; private set; }
     public Vector3 CenterPosition { get { return transform.position; } }
     
     public int DataTemplateID { get; set; }
@@ -32,7 +32,7 @@ public class BaseObject : InitBase
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
-        Rigidbody = gameObject.GetOrAddComponent<Rigidbody2D>();
+        Rigidbody = gameObject.GetOrAddComponent<Rigidbody>();
         return true;
     }
 

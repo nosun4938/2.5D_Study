@@ -153,7 +153,7 @@ public class Player : Creature
 
             slot = input.Slot;
             _inputBuffer.RemoveAt(i);
-            Debug.Log($"{slot} is Used");
+            //Debug.Log($"{slot} is Used");
 
             return true;
         }
@@ -204,7 +204,7 @@ public class Player : Creature
             ? Deceleration
             : Deceleration * 0.8f;
 
-        float currentSpeed = Rigidbody.linearVelocityX;
+        float currentSpeed = Rigidbody.linearVelocity.x;
 
         if (Mathf.Abs(targetSpeed) > 0.01f)
         {
@@ -221,7 +221,7 @@ public class Player : Creature
                 decel * Time.fixedDeltaTime);
         }
 
-        Rigidbody.linearVelocityX = currentSpeed;
+        Rigidbody.SetVelocityX(currentSpeed);
     }
 
     public void LookDirection()

@@ -1,17 +1,20 @@
 using Data;
 using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using static Define;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Creature : BaseObject
 {
     #region Components & Enums
-    public BoxCollider2D Collider { get; private set; }
+    public BoxCollider Collider { get; private set; }
     public Data.CreatureData CreatureData { get; private set; }
 
-    public BoxCollider2D HitCircle {  get; private set; }
+    public BoxCollider HitCircle {  get; private set; }
     public Transform GroundCheck { get; protected set; }
     public Transform WallCheck { get; protected set; }
     public Transform HitCheck { get; private set; }
@@ -35,15 +38,17 @@ public class Creature : BaseObject
     public bool IsGrounded { get; set; } = false;
     public Vector2 LastPosition { get; set; }
 
+    private Collider[] _overlapGrounds = new Collider[4];
     public bool CheckIsGrounded()
     {
-        //return Physics2D.OverlapCircle(WallCheck.position, 0.55f, LayerMask.GetMask("Ground"));
-        return Physics2D.OverlapBox(GroundCheck.position, new Vector2(CreatureData.HitBox.Size.x - 0.1f, 0.5f), 0f, LayerMask.GetMask("Ground"));
-    }
+        int hitCount = Physics.OverlapBoxNonAlloc(
+            GroundCheck.position, 
+            new Vector3(CreatureData.HitBox.Size.x - 0.1f, 0.5f, 0.5f), 
+            _overlapGrounds, 
+            Quaternion.identity, 
+            LayerMask.GetMask("Ground"));
 
-    public bool CheckIsBounded()
-    {
-        return Physics2D.OverlapCircle(WallCheck.position, 0.55f, LayerMask.GetMask("Wall"));
+        return hitCount > 0;
     }
 
     private void OnDrawGizmos()
@@ -53,7 +58,7 @@ public class Creature : BaseObject
             return;
 
         Handles.color = new Color(1, 0, 0, 0.4f);
-        Handles.DrawWireCube(GroundCheck.position, new Vector2(CreatureData.HitBox.Size.x, 0.5f));
+        Handles.DrawWireCube(GroundCheck.position, new Vector3(CreatureData.HitBox.Size.x - 0.1f, 0.5f, 0.5f));
     #endif
     }
     #endregion
@@ -119,18 +124,17 @@ public class Creature : BaseObject
         gameObject.name = $"{CreatureData.DataID}_{CreatureData.DescriptionTextID}";
 
         // Collider
-        Collider = gameObject.GetOrAddComponent<BoxCollider2D>();
-        Collider.offset = CreatureData.HitBox.Offset;
+        Collider = gameObject.GetOrAddComponent<BoxCollider>();
+        Collider.center = CreatureData.HitBox.Offset;
         Collider.size = CreatureData.HitBox.Size;
 
-        HitCircle = HitCheck.gameObject.GetOrAddComponent<BoxCollider2D>();
-        HitCircle.offset = CreatureData.HitCircle.Offset;
+        HitCircle = HitCheck.gameObject.GetOrAddComponent<BoxCollider>();
+        HitCircle.center = CreatureData.HitCircle.Offset;
         HitCircle.size = CreatureData.HitCircle.Size;
         HitCircle.isTrigger = true;
         
         // RigidBody
         Rigidbody.mass = CreatureData.Mass;
-        Rigidbody.gravityScale = 5.0f;
 
         // Animator
         Animator animator = GetComponent<Animator>();

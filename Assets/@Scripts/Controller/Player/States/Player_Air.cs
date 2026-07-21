@@ -6,7 +6,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Player_Air : PlayerStateBase
 {
-    private const float JumpCutMultiplier = 0.5f;
+    private Vector3 JumpCutMultiplier = new Vector3(1, 0.5f, 1);
 
     public Player_Air(Player owner, PlayerStateMachine stateMachine) : base(owner, stateMachine) { }
     public override void Enter()
@@ -38,12 +38,15 @@ public class Player_Air : PlayerStateBase
     }
 
     #region Jump
+    const float _fullJumpTime = 0.35f;
+    float _timer = 0f;
     private void EnterJump()
     {
         Debug.Log("Enter Jump");
         Owner.HasJumped = true;
-        Owner.Rigidbody.linearVelocityY = Owner.JumpSpeed;
-        Owner.Rigidbody.gravityScale = 3.0f;
+        Owner.Rigidbody.SetVelocityY(Owner.JumpSpeed);
+
+        _timer = 0f;
 
         Owner.CreatureState = ECreatureState.Jump;
         PlayAnimation("Jump");
@@ -51,14 +54,24 @@ public class Player_Air : PlayerStateBase
 
     private void UpdateJump()
     {
-        if (Owner.IsJumpPressed == false && Owner.Rigidbody.linearVelocityY > 0f)
+        _timer += Time.deltaTime;
+
+        if (Owner.IsJumpPressed == false && Owner.Rigidbody.linearVelocity.y > 0f)
         {
-            Owner.Rigidbody.linearVelocityY *= JumpCutMultiplier;
+            Owner.Rigidbody.linearVelocity = Vector3.Scale(Owner.Rigidbody.linearVelocity, JumpCutMultiplier);
         }
 
         // To Fall
-        if (Owner.Rigidbody.linearVelocityY < 0f)
+        if (Owner.Rigidbody.linearVelocity.y < 0f)
         {
+            EnterFall();
+            return;
+        }
+        
+        // To Fall_Timeover
+        if (_timer > _fullJumpTime)
+        {
+            Owner.Rigidbody.linearVelocity = Vector3.Scale(Owner.Rigidbody.linearVelocity, JumpCutMultiplier);
             EnterFall();
             return;
         }
@@ -71,7 +84,6 @@ public class Player_Air : PlayerStateBase
     private void EnterFall()
     {
         Debug.Log("Enter Fall");
-        Owner.Rigidbody.gravityScale = 5.0f;
         Owner.CreatureState = ECreatureState.Fall;
         PlayAnimation("Fall");
     }
@@ -84,6 +96,10 @@ public class Player_Air : PlayerStateBase
             Owner.ChangeReason = EStateChangeReason.Land;
             _stateMachine.ChangeState(Owner._groundState);
             return;
+        }
+        else
+        {
+            Owner.Rigidbody.AddForce(Physics.gravity * 4);
         }
 
         Owner.LookDirection();
