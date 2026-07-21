@@ -42,7 +42,7 @@ public class Player_Air : PlayerStateBase
     float _timer = 0f;
     private void EnterJump()
     {
-        Debug.Log("Enter Jump");
+        //Debug.Log("Enter Jump");
         Owner.HasJumped = true;
         Owner.Rigidbody.SetVelocityY(Owner.JumpSpeed);
 
@@ -83,7 +83,7 @@ public class Player_Air : PlayerStateBase
     #region Fall
     private void EnterFall()
     {
-        Debug.Log("Enter Fall");
+        //Debug.Log("Enter Fall");
         Owner.CreatureState = ECreatureState.Fall;
         PlayAnimation("Fall");
     }

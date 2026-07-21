@@ -52,7 +52,7 @@ public class Player_Ground : PlayerStateBase
     #region Idle
     private void EnterIdle()
     {
-        Debug.Log("Enter Idle");
+        //Debug.Log("Enter Idle");
         Owner.CreatureState = ECreatureState.Idle;
         PlayAnimation("Idle");
     }
@@ -71,7 +71,7 @@ public class Player_Ground : PlayerStateBase
     #region RunStart
     private void EnterRunStart()
     {
-        Debug.Log("Enter RunStart");
+        //Debug.Log("Enter RunStart");
         Owner.CreatureState = ECreatureState.RunStart;
         PlayAnimation("Run_Start");
     }
@@ -106,7 +106,7 @@ public class Player_Ground : PlayerStateBase
     #region RunMid
     private void EnterRunMid()
     {
-        Debug.Log("Enter RunMid");
+        //Debug.Log("Enter RunMid");
         Owner.CreatureState = ECreatureState.RunMid;
         PlayAnimation("Run_Mid");
     }
@@ -134,7 +134,7 @@ public class Player_Ground : PlayerStateBase
     #region Stop
     private void EnterStop()
     {
-        Debug.Log("Enter Stop");
+        //Debug.Log("Enter Stop");
         Owner.CreatureState = ECreatureState.Stop;
         PlayAnimation("Stop");
     }
@@ -168,7 +168,7 @@ public class Player_Ground : PlayerStateBase
     #region Turn
     private void EnterTurn()
     {
-        Debug.Log("Enter Turn");
+        //Debug.Log("Enter Turn");
         Owner.CreatureState = ECreatureState.Turn;
         PlayAnimation("Turn");
     }
@@ -198,7 +198,7 @@ public class Player_Ground : PlayerStateBase
     #region Land
     private void EnterLand()
     {
-        Debug.Log("Enter Land");
+        //Debug.Log("Enter Land");
         Owner.CreatureState = ECreatureState.Land;
         PlayAnimation("Land");
     }
