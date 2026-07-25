@@ -11,7 +11,7 @@ public static class Extension
         return Util.GetOrAddComponent<T>(go);
     }
 
-    /*
+    
     public static void BindEvent(this GameObject go, Action<PointerEventData> click = null, Action enter = null, Action anyKey = null, Action<PointerEventData> over = null)
     {
         UI_Base.BindEvent(go, click, enter, anyKey);
@@ -19,7 +19,7 @@ public static class Extension
     public static void BindEvent(this Button btn, Action<PointerEventData> click = null, Action enter = null, Action anyKey = null, Action<PointerEventData> over = null)
     {
         UI_Base.BindEvent(btn.gameObject, click, enter, anyKey);
-    }*/
+    }
 
     public static bool IsValid(this GameObject go)
     {
