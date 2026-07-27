@@ -5,7 +5,6 @@ using static Define;
 
 public class ObjectManager
 {
-    //public HashSet<Hero> Heroes { get; } = new HashSet<Hero>();
     public Player Player { get; private set; }
 
 
@@ -67,8 +66,8 @@ public class ObjectManager
             switch (creature.CreatureType)
             {
                 case ECreatureType.Player:
-                    //Hero hero = creature as Hero;
-                    //Player = null;
+                    Player player = creature as Player;
+                    Player = null;
                     break;
             }
         }

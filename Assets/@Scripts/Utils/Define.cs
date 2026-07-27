@@ -157,13 +157,14 @@ public static class Define
 
     public static class AnimName
     {
-        public const string IDLE = "Idle-Animation";
-        public const string RUN = "Run-Animation";
-        public const string JUMP = "Jump-Animation";
-        public const string CROUCH = "Crouch-Animation";
-        public const string Hurt = "Hurt-Animation";
-        public const string Skill = "Crouch-Animation";
-        public const string Dead = "Dead-Animation";
+        public const string IDLE = "Idle";
+        public const string RUNSTART = "Run_Start";
+        public const string RUNMID = "Run_Mid";
+        public const string STOP = "Stop";
+        public const string TURN = "Turn";
+        public const string JUMP = "Jump";
+        public const string FALL = "Fall";
+        public const string LAND = "Land";
     }
 
     public static class SortingLayers

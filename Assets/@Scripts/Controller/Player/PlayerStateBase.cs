@@ -11,7 +11,7 @@ public class PlayerStateBase
         _stateMachine = stateMachine;
     }
 
-    public string CurrentAnimName { get; set; }
+    
     public virtual void Enter()
     {
         
@@ -19,7 +19,7 @@ public class PlayerStateBase
 
     public virtual void Exit()
     {
-        CurrentAnimName = null;
+        Owner.CurrentAnimName = null;
     }
     public virtual void Update()
     {
@@ -34,21 +34,4 @@ public class PlayerStateBase
         Exit();
         Enter();
     }
-
-    #region Animation Helpers
-    protected void PlayAnimation(string animName)
-    {
-        if (CurrentAnimName == animName)
-            return;
-
-        CurrentAnimName = animName;
-        Owner.Animator.Play(animName, 0, 0f);
-    }
-
-    protected bool IsAnimFinished()
-    {
-        var info = Owner.Animator.GetCurrentAnimatorStateInfo(0);
-        return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
-    }
-    #endregion
 }

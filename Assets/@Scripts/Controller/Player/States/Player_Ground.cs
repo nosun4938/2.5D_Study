@@ -54,7 +54,6 @@ public class Player_Ground : PlayerStateBase
     {
         //Debug.Log("Enter Idle");
         Owner.CreatureState = ECreatureState.Idle;
-        PlayAnimation("Idle");
     }
 
     private void UpdateIdle()
@@ -73,7 +72,6 @@ public class Player_Ground : PlayerStateBase
     {
         //Debug.Log("Enter RunStart");
         Owner.CreatureState = ECreatureState.RunStart;
-        PlayAnimation("Run_Start");
     }
 
     private void UpdateRunStart()
@@ -93,7 +91,7 @@ public class Player_Ground : PlayerStateBase
         }
 
         // To RunMid
-        if (IsAnimFinished())
+        if (Owner.IsAnimFinished())
         {
             EnterRunMid();
             return;
@@ -108,7 +106,6 @@ public class Player_Ground : PlayerStateBase
     {
         //Debug.Log("Enter RunMid");
         Owner.CreatureState = ECreatureState.RunMid;
-        PlayAnimation("Run_Mid");
     }
 
     private void UpdateRunMid()
@@ -136,7 +133,6 @@ public class Player_Ground : PlayerStateBase
     {
         //Debug.Log("Enter Stop");
         Owner.CreatureState = ECreatureState.Stop;
-        PlayAnimation("Stop");
     }
 
     private void UpdateStop()
@@ -155,7 +151,7 @@ public class Player_Ground : PlayerStateBase
             return;
         }
 
-        if (IsAnimFinished())
+        if (Owner.IsAnimFinished())
         {
             EnterIdle();
             return;
@@ -170,12 +166,11 @@ public class Player_Ground : PlayerStateBase
     {
         //Debug.Log("Enter Turn");
         Owner.CreatureState = ECreatureState.Turn;
-        PlayAnimation("Turn");
     }
 
     private void UpdateTurn()
     {
-        if (IsAnimFinished() == false)
+        if (Owner.IsAnimFinished() == false)
             return;
 
         // To RunMid
@@ -200,7 +195,6 @@ public class Player_Ground : PlayerStateBase
     {
         //Debug.Log("Enter Land");
         Owner.CreatureState = ECreatureState.Land;
-        PlayAnimation("Land");
     }
 
     private void UpdateLand()
@@ -213,7 +207,7 @@ public class Player_Ground : PlayerStateBase
         }
         
         // To Idle
-        if (IsAnimFinished() == true)
+        if (Owner.IsAnimFinished() == true)
         {
             EnterIdle();
             return;

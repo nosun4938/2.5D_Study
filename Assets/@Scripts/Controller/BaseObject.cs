@@ -46,5 +46,10 @@ public class BaseObject : InitBase
         SpriteRenderer.flipX = flag;
     }
 
+    protected virtual void UpdateAnimation()
+    {
+
+    }
+
     #endregion
 }

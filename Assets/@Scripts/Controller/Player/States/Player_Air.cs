@@ -49,7 +49,6 @@ public class Player_Air : PlayerStateBase
         _timer = 0f;
 
         Owner.CreatureState = ECreatureState.Jump;
-        PlayAnimation("Jump");
     }
 
     private void UpdateJump()
@@ -85,7 +84,6 @@ public class Player_Air : PlayerStateBase
     {
         //Debug.Log("Enter Fall");
         Owner.CreatureState = ECreatureState.Fall;
-        PlayAnimation("Fall");
     }
 
     private void UpdateFall()

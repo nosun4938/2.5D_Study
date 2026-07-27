@@ -10,10 +10,18 @@ using UnityEditor;
 
 public class Creature : BaseObject
 {
-    #region Components & Enums
-    public BoxCollider Collider { get; private set; }
     public Data.CreatureData CreatureData { get; private set; }
+    #region Stats
+    public float Hp { get; protected set; }
+    public float MaxHp { get; protected set; }
+    public float MoveSpeed { get; set; }
+    public float JumpSpeed { get; set; }
+    public float Acceleration { get; set; }
+    public float Deceleration { get; set; }
+    #endregion
 
+    #region Components & Variables
+    public BoxCollider Collider { get; private set; }
     public BoxCollider HitCircle {  get; private set; }
     public Transform GroundCheck { get; protected set; }
     public Transform WallCheck { get; protected set; }
@@ -61,16 +69,6 @@ public class Creature : BaseObject
         Handles.DrawWireCube(GroundCheck.position, new Vector3(CreatureData.HitBox.Size.x - 0.1f, 0.5f, 0.5f));
     #endif
     }
-    #endregion
-
-    #region Stats
-    // Creature
-    public float Hp { get; protected set; }
-    public float MaxHp {  get; protected set; }
-    public float MoveSpeed { get; set; }
-    public float JumpSpeed { get; set; }
-    public float Acceleration { get; set; }
-    public float Deceleration { get; set; }
     #endregion
 
     public override bool Init()
@@ -172,9 +170,6 @@ public class Creature : BaseObject
         JumpSpeed = CreatureData.JumpSpeed;
         Acceleration = CreatureData.Acceleration;
         Deceleration = CreatureData.Deceleration;
-
-        // State
-        CreatureState = ECreatureState.Idle;
     }
     public virtual void Update()
     {

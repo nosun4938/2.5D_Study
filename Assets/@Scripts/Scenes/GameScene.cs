@@ -19,6 +19,9 @@ public class GameScene : BaseScene
         Player player = Managers.Object.Spawn<Player>(new Vector3Int(0, 0, 0), 202001);
 
         // Map
+        GameObject map = Managers.Resource.Instantiate("TestMap");
+        map.transform.position = Vector3.zero;
+        map.name = "@TestMap";
 
         // Camera
         CameraController camera = Camera.main.GetComponent<CameraController>();
