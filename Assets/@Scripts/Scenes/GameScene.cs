@@ -15,17 +15,16 @@ public class GameScene : BaseScene
 
         SceneType = EScene.GameScene;
 
-        // Hero, 가장 먼저 생성해야함 
-        Player player = Managers.Object.Spawn<Player>(new Vector3Int(0, 0, 0), 202001);
-
         // Map
-        GameObject map = Managers.Resource.Instantiate("TestMap");
-        map.transform.position = Vector3.zero;
-        map.name = "@TestMap";
+        Managers.Map.LoadMap("TestMap");
+
+        // Hero
+        Player player = Managers.Object.Spawn<Player>(new Vector3(0, 0, 0), 202001);
 
         // Camera
         CameraController camera = Camera.main.GetComponent<CameraController>();
         camera.SetInfo(player);
+        camera.SetMap();
         // UI
 
         // Sound
