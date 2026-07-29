@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class MapManager
 {
+    public Stage CurrentStage { get; set; }
     public GameObject Map { get; private set; }
     public string MapName { get; private set; }
     public BoxCollider Volume { get; private set; }
 
     Dictionary<Vector3, BaseObject> _objects = new Dictionary<Vector3, BaseObject>();
+    public StageTransition StageTransition;
 
     public void LoadMap(string mapName)
     {
@@ -17,11 +20,13 @@ public class MapManager
         map.transform.position = Vector3.zero;
         map.name = $"@Map_{mapName}";
 
+        StageTransition = map.GetComponent<StageTransition>();
+
         Map = map;
         MapName = mapName;
-        Volume = map.transform.Find("Volume").GetComponent<BoxCollider>();
+        //Volume = map.transform.Find("Volume").GetComponent<BoxCollider>();
 
-        //SpawnObjectsByData(map, mapName);
+        //SpawnObjectsByData();
     }
 
     public void DestroyMap()
@@ -36,4 +41,23 @@ public class MapManager
     {
         _objects.Clear();
     }
+
+    /*
+    public void SpawnObjectsByData()
+    {
+        SpawnPoint[] points = Map.GetComponentsInChildren<SpawnPoint>();
+
+        foreach (var point in points)
+        {
+            int dataID = point.DataID;
+            EObjectType objectType = point.ObjectType;
+            
+            switch (objectType)
+            {
+                case EObjectType.Monster:
+                    //Managers.Object.Spawn<Monster>(point.transform.position, dataID);
+                    break;
+            }
+        }
+    }*/
 }

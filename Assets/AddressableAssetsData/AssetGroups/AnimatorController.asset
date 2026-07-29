@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: AnimatorController
   m_GUID: a8469a254cd19734eb3a713337b285ee
   m_SerializeEntries:
+  - m_GUID: 62bb38a9bd090244dba81227722a37df
+    m_Address: NpcAnimationController
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7223940dd24488943977efff7ac9b312
     m_Address: PedroAnimationController
     m_ReadOnly: 0

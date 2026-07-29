@@ -51,7 +51,7 @@ public class Player : Creature
 
         // Layer
         gameObject.layer = LayerMask.NameToLayer("Player");
-        CreatureType = ECreatureType.Player;
+        ObjectType = EObjectType.Player;
 
         // StateMachine
         _stateMachine = new PlayerStateMachine(this);
@@ -68,6 +68,8 @@ public class Player : Creature
         HandleBufferedInput();
 
         _stateMachine?.Update();
+            
+        //Managers.Map.StageTransition.CheckMapChanged(transform.position);
     }
 
     public void FixedUpdate()

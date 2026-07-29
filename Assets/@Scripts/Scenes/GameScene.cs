@@ -17,6 +17,7 @@ public class GameScene : BaseScene
 
         // Map
         Managers.Map.LoadMap("TestMap");
+        Managers.Map.StageTransition.SetInfo();
 
         // Hero
         Player player = Managers.Object.Spawn<Player>(new Vector3(0, 0, 0), 202001);

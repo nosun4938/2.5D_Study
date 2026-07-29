@@ -27,8 +27,6 @@ public class Creature : BaseObject
     public Transform WallCheck { get; protected set; }
     public Transform HitCheck { get; private set; }
 
-    public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
-
     protected ECreatureState _creatureState = ECreatureState.None;
     public virtual ECreatureState CreatureState
     {
@@ -76,8 +74,6 @@ public class Creature : BaseObject
         if (base.Init() == false)
             return false;
 
-        ObjectType = EObjectType.Creature;
-
         // Physics Checker
         GroundCheck = transform.Find("@groundCheck");
         if (GroundCheck == null)
@@ -116,7 +112,7 @@ public class Creature : BaseObject
     {
         DataTemplateID = templateID;
 
-        if (CreatureType == ECreatureType.Player)
+        if (ObjectType == EObjectType.Player)
             CreatureData = Managers.Data.PlayerDic[templateID];
 
         gameObject.name = $"{CreatureData.DataID}_{CreatureData.DescriptionTextID}";
@@ -147,19 +143,16 @@ public class Creature : BaseObject
             spriteRenderer = gameObject.GetOrAddComponent<SpriteRenderer>();
 
         // Sorting Layer
-        switch (CreatureType)
+        switch (ObjectType)
         {
-            case ECreatureType.Player:
+            case EObjectType.Player:
                 spriteRenderer.sortingOrder = SortingLayers.HERO;
                 break;
-            case ECreatureType.Monster:
+            case EObjectType.Monster:
                 spriteRenderer.sortingOrder = SortingLayers.MONSTER;
                 break;
-            case ECreatureType.Boss:
+            case EObjectType.Boss:
                 spriteRenderer.sortingOrder = SortingLayers.BOSS;
-                break;
-            case ECreatureType.Artifact:
-                spriteRenderer.sortingOrder= SortingLayers.ARTIFACT;
                 break;
         }
 

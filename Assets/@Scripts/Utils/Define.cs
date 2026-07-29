@@ -39,36 +39,19 @@ public static class Define
     public enum EObjectType
     {
         None,
-        Creature,
-        Interaction,
-        Item,
-    }
-
-    public enum EInteractionType
-    {
-        None,
-        NPC,
-        Bench,
-        Chest,
-    }
-
-    public enum ECreatureType
-    {
-        None,
         Player,
         Monster,
         Boss,
-        Artifact,
+        Npc,
+        Item,
     }
 
-    public enum EArtifactType
+    public enum ENpcType
     {
         None,
-        Wood,
-        Fire,
-        Earth,
-        Metal,
-        Water,
+        Dummy,
+        Guild,
+        Weapon,
     }
 
     public enum ECreatureState
@@ -79,19 +62,11 @@ public static class Define
         RunMid,
         Stop,
         Turn,
+        Dead,
 
         Jump,
         Fall,
         Land,
-
-        Dash,
-        Crouch,
-        Dead,
-
-        Hitstun,
-        Stagger,
-        Airborne,
-        Knockdown,
     }
 
     public enum EStateChangeReason
@@ -142,17 +117,6 @@ public static class Define
         Step,
         Slide,
         Heavy,
-    }
-
-    public enum ECreatureWeapon
-    {
-        None,
-        Barrier,
-        Sword,
-        Dagger,
-        BattleAxe,
-        Hammer,
-        Shield,
     }
 
     public static class AnimName
@@ -210,60 +174,6 @@ public static class Define
     }
 
     [Serializable]
-    public class CreatureSkillMap
-    {
-        public StateSkill Default;
-        public StateSkill HeroSkill;
-        public StateSkill MonsterSkill;
-        public StateSkill BossSkill;
-        public StateSkill ArtifactSkill;
-
-        public StateSkill GetStateSkill(ECreatureType type)
-        {
-            switch (type)
-            {
-                case ECreatureType.Player:
-                    return HeroSkill ?? Default;
-
-                case ECreatureType.Monster:
-                    return MonsterSkill ?? Default;
-
-                case ECreatureType.Boss:
-                    return BossSkill ?? Default;
-
-                case ECreatureType.Artifact:
-                    return ArtifactSkill ?? Default;
-
-                default:
-                    return Default;
-            }
-        }
-
-        public int GetSkillId(ECreatureType type, ECreatureState state)
-        {
-            StateSkill skill = GetStateSkill(type);
-
-            if (skill == null)
-                return 0;
-
-            switch (state)
-            {
-                case ECreatureState.Idle:
-                    return skill.Idle;
-
-                case ECreatureState.Jump:
-                    return skill.Jump;
-
-                case ECreatureState.Dash:
-                    return skill.Dash;
-
-                default:
-                    return 0;
-            }
-        }
-    }
-
-    [Serializable]
     public class StateSkill
     {
         public int Dash;
@@ -287,35 +197,5 @@ public static class Define
         public bool Active;
         public Vector3 Position;
         public int Hp;
-    }
-
-    public struct SkillKey : IEquatable<SkillKey>
-    {
-        public ECreatureWeapon Weapon;
-        public ECreatureState State;
-        public ESkillSlot Slot;
-        public int Combo;
-
-        public SkillKey(ECreatureWeapon weapon, ECreatureState state, ESkillSlot slot, int combo)
-        {
-            Weapon = weapon;
-            State = state;
-            Slot = slot;
-            Combo = combo;
-        }
-
-        public override string ToString()
-        {
-            return $"Weapon:{Weapon}, State:{State}, Slot:{Slot}, Combo:{Combo}";
-        }
-
-        public bool Equals(SkillKey other) =>
-            Weapon == other.Weapon && State == other.State && Slot == other.Slot && Combo == other.Combo;
-
-        public override int GetHashCode() =>
-            HashCode.Combine((int)Weapon, (int)State, (int)Slot, (int)Combo);
-
-        public override bool Equals(object obj) =>
-            obj is SkillKey other && Equals(other);
     }
 }

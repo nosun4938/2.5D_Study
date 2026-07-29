@@ -1,0 +1,22 @@
+{
+  "npcs": [
+    {
+      "DataID": 100001,
+      "DescriptionTextID": "Dummy",
+      "NpcType": "Dummy",
+      "PrefabLabel": "Npc",
+      "AnimatorName": "NpcAnimationController",
+      "InteractionBox": {
+        "Offset": {
+          "x": 0.25,
+          "y": 3.25
+        },
+        "Size": {
+          "x": 2,
+          "y": 7
+        },
+        "TargetLayer": "Enemy"
+      }
+    }
+  ]
+}

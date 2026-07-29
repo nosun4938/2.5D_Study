@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using static Define;
 
 public class ObjectManager
 {
     public Player Player { get; private set; }
+    public HashSet<Npc> Npcs { get; } = new HashSet<Npc>();
 
 
     #region Roots
@@ -23,6 +25,7 @@ public class ObjectManager
     public Transform ArtifactRoot { get { return GetRootTransform("@Artifacts"); } }
     public Transform ItemRoot { get { return GetRootTransform("@Items"); } }
     public Transform InteractionRoot { get { return GetRootTransform("@Interactions"); } }
+    public Transform NpcRoot { get { return GetRootTransform("@Npcs"); } }
     #endregion
 
     public T Spawn<T>(Vector3 position, int templateID) where T : BaseObject
@@ -35,19 +38,19 @@ public class ObjectManager
 
         BaseObject obj = go.GetComponent<BaseObject>();
         
-        if (obj.ObjectType == EObjectType.Creature)
+        if (obj.ObjectType == EObjectType.Player)
         {
-            Creature creature = go.GetComponent<Creature>();
-            switch (creature.CreatureType)
-            {
-                case ECreatureType.Player:
-                    Debug.Log("Player Spawn");
-                    Player player = creature as Player;
-                    Player = player;
-                    break;
-            }
-
-            creature.SetInfo(templateID);
+            Debug.Log("Player Spawn");
+            Player player = go.GetComponent<Player>();
+            Player = player;
+            player.SetInfo(templateID);
+        }
+        else if (obj.ObjectType == EObjectType.Npc)
+        {
+            Debug.Log("NPC Spawn");
+            Npc npc = go.GetComponent<Npc>();
+            Npcs.Add(npc);
+            npc.SetInfo(templateID);
         }
 
         return obj as T;
@@ -60,16 +63,14 @@ public class ObjectManager
 
         EObjectType objectType = obj.ObjectType;
 
-        if (obj.ObjectType == EObjectType.Creature)
+        if (objectType == EObjectType.Player)
         {
-            Creature creature = obj.GetComponent<Creature>();
-            switch (creature.CreatureType)
-            {
-                case ECreatureType.Player:
-                    Player player = creature as Player;
-                    Player = null;
-                    break;
-            }
+            Player = null;
+        }
+        else if (objectType == EObjectType.Npc)
+        {
+            Npc npc = obj as Npc;
+            Npcs.Remove(npc);
         }
 
         Managers.Resource.Destroy(obj.gameObject);

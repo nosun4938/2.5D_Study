@@ -66,5 +66,31 @@ namespace Data
     }
     #endregion
 
+    #region NpcData
+    [Serializable]
+    public class NpcData
+    {
+        public int DataID;
+        public string DescriptionTextID;
+        public ENpcType NpcType;
+        public string PrefabLabel;
+        public string AnimatorName;
+        public HitBoxData InteractionBox;
+    }
+
+    [Serializable]
+    public class NpcDataLoader : ILoader<int, NpcData>
+    {
+        public List<NpcData> npcs = new List<NpcData>();
+        public Dictionary<int, NpcData> MakeDict()
+        {
+            Dictionary<int, NpcData> dict = new Dictionary<int, NpcData>();
+            foreach (NpcData npc in npcs)
+                dict.Add(npc.DataID, npc);
+            return dict;
+        }
+    }
+    #endregion
+
     #endregion
 }

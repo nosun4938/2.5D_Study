@@ -43,6 +43,6 @@ public class CameraController : InitBase
 
     public void SetMap()
     {
-        _cinemachineConfiner.BoundingVolume = Managers.Map.Volume;
+        //_cinemachineConfiner.BoundingVolume = Managers.Map.Volume;
     }
 }
