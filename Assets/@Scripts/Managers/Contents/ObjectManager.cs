@@ -48,6 +48,7 @@ public class ObjectManager
         else if (obj.ObjectType == EObjectType.Npc)
         {
             Debug.Log("NPC Spawn");
+            obj.transform.parent = NpcRoot;
             Npc npc = go.GetComponent<Npc>();
             Npcs.Add(npc);
             npc.SetInfo(templateID);

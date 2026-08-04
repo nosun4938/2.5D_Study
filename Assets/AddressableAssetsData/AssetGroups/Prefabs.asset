@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f384333b28d41d04486737c5b04bb53c
+    m_Address: UI_NpcInteraction
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa81d57eb6d027b4497e744a5c5211f0
     m_Address: Player
     m_ReadOnly: 0

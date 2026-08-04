@@ -20,5 +20,6 @@ public class StageVolume : MonoBehaviour
         int currentIndex = Managers.Game.CurrentStageIndex;
         if (currentIndex != StageIndex)
             Managers.Map.StageTransition.OnMapChanged(StageIndex);
+
     }
 }

@@ -41,8 +41,8 @@ public class CameraController : InitBase
         _cinemachinePosition.Damping = new Vector3(1, 1, 1);
     }
 
-    public void SetMap()
+    public void SetMap(Collider collider)
     {
-        //_cinemachineConfiner.BoundingVolume = Managers.Map.Volume;
+        _cinemachineConfiner.BoundingVolume = collider;
     }
 }

@@ -25,8 +25,6 @@ public class MapManager
         Map = map;
         MapName = mapName;
         //Volume = map.transform.Find("Volume").GetComponent<BoxCollider>();
-
-        //SpawnObjectsByData();
     }
 
     public void DestroyMap()
@@ -41,23 +39,4 @@ public class MapManager
     {
         _objects.Clear();
     }
-
-    /*
-    public void SpawnObjectsByData()
-    {
-        SpawnPoint[] points = Map.GetComponentsInChildren<SpawnPoint>();
-
-        foreach (var point in points)
-        {
-            int dataID = point.DataID;
-            EObjectType objectType = point.ObjectType;
-            
-            switch (objectType)
-            {
-                case EObjectType.Monster:
-                    //Managers.Object.Spawn<Monster>(point.transform.position, dataID);
-                    break;
-            }
-        }
-    }*/
 }
