@@ -3,7 +3,7 @@
     {
       "DataID": 100001,
       "DescriptionTextID": "Dummy",
-      "NpcType": "Dummy",
+      "NpcType": "Waypoint",
       "PrefabLabel": "Npc",
       "AnimatorName": "NpcAnimationController",
       "InteractionBox": {

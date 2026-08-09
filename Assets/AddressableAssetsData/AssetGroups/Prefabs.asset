@@ -15,8 +15,20 @@ MonoBehaviour:
   m_GroupName: Prefabs
   m_GUID: 2ce770d7ba8490b46988bfb57a2215e6
   m_SerializeEntries:
+  - m_GUID: 23d4848196d119f4e90671fd5e926e17
+    m_Address: UI_WaypointPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d07d538f9fb99945bce1716764b53e2
     m_Address: TestMap
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e470821e6f28bd49b54ec0601a1f847
+    m_Address: UI_StageItem
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

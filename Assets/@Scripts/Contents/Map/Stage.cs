@@ -13,6 +13,12 @@ public class Stage : MonoBehaviour
     public StageVolume Volume { get; set; }
     public bool IsActive = false;
 
+    public Vector3 _playerSpawnPoint;
+    public Vector3 PlayerSpawnPoint
+    {
+        get { return  _playerSpawnPoint; }
+        set { _playerSpawnPoint = value; }
+    }
     public void SetInfo(int stageIndex)
     {
         StageIndex = stageIndex;
@@ -44,6 +50,9 @@ public class Stage : MonoBehaviour
 
             switch (objectType)
             {
+                case EObjectType.Player:
+                    PlayerSpawnPoint = point.transform.position;
+                    break;
                 case EObjectType.Monster:
                     //Managers.Object.Spawn<Monster>(point.transform.position, dataID);
                     break;

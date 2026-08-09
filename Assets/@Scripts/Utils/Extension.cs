@@ -12,13 +12,9 @@ public static class Extension
     }
 
     
-    public static void BindEvent(this GameObject go, Action<PointerEventData> click = null, Action enter = null, Action anyKey = null, Action<PointerEventData> over = null)
+    public static void BindEvent(this GameObject go, Action<PointerEventData> action = null, Define.EUIEvent type = Define.EUIEvent.Click)
     {
-        UI_Base.BindEvent(go, click, enter, anyKey);
-    }
-    public static void BindEvent(this Button btn, Action<PointerEventData> click = null, Action enter = null, Action anyKey = null, Action<PointerEventData> over = null)
-    {
-        UI_Base.BindEvent(btn.gameObject, click, enter, anyKey);
+        UI_Base.BindEvent(go, action, type);
     }
 
     public static bool IsValid(this GameObject go)

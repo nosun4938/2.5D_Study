@@ -21,15 +21,9 @@ public class UI_LoadScene : UI_Scene
         BindObjects(typeof(GameObjects));
         BindTexts(typeof(Texts));
 
-        GetObject((int)GameObjects.StartImage).BindEvent(
-        click: (evt) =>
+        GetObject((int)GameObjects.StartImage).BindEvent((evt) =>
         {
-            //Debug.Log("LoadScene => TitleScene : Click");
-            Managers.Scene.LoadScene(EScene.GameScene);
-        },
-        anyKey: () =>
-        {
-            //Debug.Log("LoadScene => TitleScene : AnyKey");
+            Debug.Log("ChangeScene");
             Managers.Scene.LoadScene(EScene.GameScene);
         });
 
@@ -44,7 +38,7 @@ public class UI_LoadScene : UI_Scene
     {
         Managers.Resource.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
-            //Debug.Log($"{key} {count}/{totalCount}");
+            Debug.Log($"{key} {count}/{totalCount}");
 
             if (count == totalCount)
             {

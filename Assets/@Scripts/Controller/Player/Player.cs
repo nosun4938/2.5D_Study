@@ -159,6 +159,11 @@ public class Player : Creature
     {
         BufferInput(ESkillSlot.Dash);
     }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+
+    }
     #endregion
 
     #region Input Buffering

@@ -52,6 +52,14 @@ public static class Define
         Dummy,
         Guild,
         Weapon,
+        Waypoint,
+    }
+    public enum EUIEvent
+    {
+        Click,
+        PointerDown,
+        PointerUp,
+        Drag,
     }
 
     public enum ECreatureState

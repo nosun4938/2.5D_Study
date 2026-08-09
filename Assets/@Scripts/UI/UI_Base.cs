@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Define;
 
 public class UI_Base : InitBase
 {
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
-    public UnityEngine.Object[] test;
 
     private void Awake()
     {
@@ -54,32 +55,28 @@ public class UI_Base : InitBase
     protected Image GetImage(int idx) { return Get<Image>(idx); }
     protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
 
-    public static void BindEvent(GameObject go, Action<PointerEventData> click = null, Action enter = null, Action anyKey = null, Action<PointerEventData> over = null)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action = null, EUIEvent type = EUIEvent.Click)
     {
         UI_EventHandler evt = Util.GetOrAddComponent<UI_EventHandler>(go);
 
-        if (click != null)
+        switch (type)
         {
-            evt.OnClickHandler -= click;
-            evt.OnClickHandler += click;
-        }
-
-        if (enter != null)
-        {
-            evt.OnEnterHandler -= enter;
-            evt.OnEnterHandler += enter;
-        }
-
-        if (anyKey != null)
-        {
-            evt.OnAnyKeyHandler -= anyKey;
-            evt.OnAnyKeyHandler += anyKey;
-        }
-
-        if (over != null)
-        {
-            evt.OnPointerEnterHandler -= over;
-            evt.OnPointerEnterHandler += over;
+            case EUIEvent.Click:
+                evt.OnClickHandler -= action;
+                evt.OnClickHandler += action;
+                break;
+            case EUIEvent.PointerDown:
+                evt.OnPointerDownHandler -= action;
+                evt.OnPointerDownHandler += action;
+                break;
+            case EUIEvent.PointerUp:
+                evt.OnPointerUpHandler -= action;
+                evt.OnPointerUpHandler += action;
+                break;
+            case EUIEvent.Drag:
+                evt.OnDragHandler -= action;
+                evt.OnDragHandler += action;
+                break;
         }
     }
 }

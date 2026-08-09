@@ -11,5 +11,11 @@ public class GameManager
     public EGameState GameState { get; private set; } = EGameState.Playing;
     public Stage CurrentStage { get; set; }
     public int CurrentStageIndex { get; set; } = -1;
-    
+
+    #region Teleport
+    public void TeleportPlayer(Vector3 teleportPosition)
+    {
+        Managers.Object.Player.transform.position = teleportPosition; 
+    }
+    #endregion
 }
