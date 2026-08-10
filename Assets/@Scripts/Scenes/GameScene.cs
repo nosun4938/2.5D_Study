@@ -25,8 +25,10 @@ public class GameScene : BaseScene
         // Camera
         CameraController camera = Camera.main.GetComponent<CameraController>();
         camera.SetInfo(player);
+        
         // UI
-
+        Managers.UI.CacheAllPopups();
+        
         // Sound
 
         return true;
