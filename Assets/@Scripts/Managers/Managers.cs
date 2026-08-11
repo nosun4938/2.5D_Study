@@ -37,6 +37,27 @@ public class Managers : MonoBehaviour
     public static UIManager UI { get { return Instance?._ui; } }
     #endregion
 
+    #region Language
+    private static Define.ELanguage _language = Define.ELanguage.Korean;
+    public static Define.ELanguage Language
+    {
+        get { return _language; }
+        set { _language = value; }
+    }
+
+    public static string GetText(string textId)
+    {
+        switch (_language)
+        {
+            case Define.ELanguage.Korean:
+                return Managers.Data.TextDic[textId].KOR;
+            case Define.ELanguage.English:
+                return Managers.Data.TextDic[textId].ENG;
+        }
+        return "";
+    }
+    #endregion
+
     public static void Init()
     {
         if (s_instance == null && Initialized == false)

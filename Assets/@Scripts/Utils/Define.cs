@@ -127,6 +127,12 @@ public static class Define
         Heavy,
     }
 
+    public enum ELanguage
+    {
+        Korean,
+        English
+    }
+
     public static class AnimName
     {
         public const string IDLE = "Idle";

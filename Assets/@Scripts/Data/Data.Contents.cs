@@ -93,4 +93,28 @@ namespace Data
     #endregion
 
     #endregion
+
+    #region TextData
+    [Serializable]
+    public class TextData
+    {
+        public string DataID;
+        public string KOR;
+        public string ENG;
+    }
+
+    [Serializable]
+    public class TextDataLoader : ILoader<string, TextData>
+    {
+        public List<TextData> texts = new List<TextData>();
+        public Dictionary<string, TextData> MakeDict()
+        {
+            Dictionary<string, TextData> dict = new Dictionary<string, TextData>();
+            foreach (TextData text in texts)
+                dict.Add(text.DataID, text);
+            return dict;
+        }
+    }
+
+    #endregion
 }
