@@ -92,6 +92,31 @@ namespace Data
     }
     #endregion
 
+    #region ItemData
+    [Serializable]
+    public class ItemData
+    {
+        public int DataID;
+        public string DescriptionTextID;
+        public string PrefabLabel;
+        public string AnimatorName;
+        public HitBoxData InteractionBox;
+    }
+
+    [Serializable]
+    public class ItemDataLoader : ILoader<int, ItemData>
+    {
+        public List<ItemData> items = new List<ItemData>();
+        public Dictionary<int, ItemData> MakeDict()
+        {
+            Dictionary<int, ItemData> dict = new Dictionary<int, ItemData>();
+            foreach (ItemData item in items)
+                dict.Add(item.DataID, item);
+            return dict;
+        }
+    }
+    #endregion
+
     #endregion
 
     #region TextData

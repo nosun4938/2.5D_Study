@@ -44,6 +44,12 @@ public class UI_LoadScene : UI_Scene
             {
                 Managers.Data.Init();
 
+                if (Managers.Game.LoadGame() == false)
+                {
+                    Managers.Game.InitGame();
+                    Managers.Game.SaveGame();
+                }
+
                 GetObject((int)GameObjects.StartImage).gameObject.SetActive(true);
                 GetText((int)Texts.DisplayText).text = "Press Anykey";
             }
