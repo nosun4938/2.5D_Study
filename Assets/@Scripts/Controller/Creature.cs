@@ -113,7 +113,7 @@ public class Creature : BaseObject
         DataTemplateID = templateID;
 
         if (ObjectType == EObjectType.Player)
-            CreatureData = Managers.Data.PlayerDic[templateID];
+            CreatureData = Managers.Data.HeroDic[templateID];
 
         gameObject.name = $"{CreatureData.DataID}_{CreatureData.DescriptionTextID}";
 

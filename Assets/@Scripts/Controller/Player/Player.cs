@@ -12,7 +12,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 public class Player : Creature
 {
-    public Data.PlayerData PlayerData { get; private set; }
+    public Data.HeroData HeroData { get; private set; }
 
     public override ECreatureState CreatureState
     {
@@ -80,7 +80,7 @@ public class Player : Creature
     public override void SetInfo(int templateID)
     {
         base.SetInfo(templateID);
-        PlayerData = CreatureData as PlayerData;
+        HeroData = CreatureData as HeroData;
 
         // State Machine
         _stateMachine.ChangeState(_groundState);

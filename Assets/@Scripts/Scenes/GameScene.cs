@@ -25,8 +25,13 @@ public class GameScene : BaseScene
         // Camera
         CameraController camera = Camera.main.GetComponent<CameraController>();
         camera.SetInfo(player);
-        
-        // UI
+
+        // Scene UI
+        UI_GameScene sceneUI = Managers.UI.ShowSceneUI<UI_GameScene>();
+        sceneUI.GetComponent<Canvas>().sortingOrder = 1;
+        sceneUI.SetInfo();
+
+        // Popup UI
         Managers.UI.CacheAllPopups();
         
         // Sound

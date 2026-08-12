@@ -29,6 +29,7 @@ namespace Data
     {
         public int DataID;
         public string DescriptionTextID;
+        public string IconImage;
         public string PrefabLabel;
         public string AnimatorName;
 
@@ -45,22 +46,22 @@ namespace Data
         public HitBoxData HitCircle;
     }
 
-    #region PlayerData
+    #region HeroData
     [Serializable]
-    public class PlayerData : CreatureData
+    public class HeroData : CreatureData
     {
         
     }
 
     [Serializable]
-    public class PlayerDataLoader : ILoader<int, PlayerData>
+    public class HeroDataLoader : ILoader<int, HeroData>
     {
-        public List<PlayerData> players = new List<PlayerData>();
-        public Dictionary<int, PlayerData> MakeDict()
+        public List<HeroData> heroes = new List<HeroData>();
+        public Dictionary<int, HeroData> MakeDict()
         {
-            Dictionary<int, PlayerData> dict = new Dictionary<int, PlayerData>();
-            foreach (PlayerData player in players)
-                dict.Add(player.DataID, player);
+            Dictionary<int, HeroData> dict = new Dictionary<int, HeroData>();
+            foreach (HeroData hero in heroes)
+                dict.Add(hero.DataID, hero);
             return dict;
         }
     }

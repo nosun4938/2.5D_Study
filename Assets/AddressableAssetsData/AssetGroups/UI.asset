@@ -14,7 +14,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: UI
   m_GUID: 16a2082ab43fd5947a6fd5629ca590d5
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 23d4848196d119f4e90671fd5e926e17
+    m_Address: UI_WaypointPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 249ae2e8fd697a243932025eeba1501b
+    m_Address: UI_HeroInfoPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e470821e6f28bd49b54ec0601a1f847
+    m_Address: UI_StageItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4b49faedca659b4689526ce522b8264
+    m_Address: UI_HeroesListPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0f63d8a30a4ccb4fa90e3eb824c418b
+    m_Address: UI_GameScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f384333b28d41d04486737c5b04bb53c
+    m_Address: UI_NpcInteraction
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f89c7745d80a4134db367811fe456c44
+    m_Address: UI_HeroesList_HeroItem
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6b54d925a9eadd247814d1c727abe9a8, type: 2}
   m_SchemaSet:

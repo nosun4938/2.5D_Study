@@ -24,16 +24,26 @@ public class Stage : MonoBehaviour
         StageIndex = stageIndex;
         Volume = Util.FindChild<StageVolume>(gameObject, "Volume", true);
         Volume.SetInfo(stageIndex);
+
+        // Init
+        IsActive = true;
+        UnLoadStage();
     }
 
     public void LoadStage()
     {
+        if (IsActive == true)
+            return;
+
         IsActive = true;
         gameObject.SetActive(true);
         SpawnObjects();
     }
     public void UnLoadStage()
     {
+        if (IsActive == false)
+            return;
+
         IsActive = false;
         gameObject.SetActive(false);
         DespawnObjects();

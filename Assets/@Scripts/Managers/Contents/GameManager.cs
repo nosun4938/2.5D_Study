@@ -16,17 +16,20 @@ public class GameSaveData
     public int Money = 0;
     public int PlayerLevel = 1;
 
-    public List<ItemSaveData> Items = new List<ItemSaveData>();
+    public List<HeroSaveData> Heroes = new List<HeroSaveData>();
 }
 
 [Serializable]
-public class ItemSaveData
+public class HeroSaveData
 {
+    public int Level = 1;
+    public int Exp = 10;
+
     public int DataId = 0;
-    public ItemOwningState OwningState = ItemOwningState.Unowned;
+    public HeroOwningState OwningState = HeroOwningState.Unowned;
 }
 
-public enum ItemOwningState
+public enum HeroOwningState
 {
     Unowned,
     Owned,
@@ -49,11 +52,11 @@ public class GameManager
         }
     }
 
-    public List<ItemSaveData> AllItems { get { return _saveData.Items; } }
-    public int TotalItemCount { get { return _saveData.Items.Count; } }
-    public int UnownedItemCount { get { return _saveData.Items.Where(h => h.OwningState == ItemOwningState.Unowned).Count(); } }
-    public int OwnedItemCount { get { return _saveData.Items.Where(h => h.OwningState == ItemOwningState.Owned).Count(); } }
-    public int PickedItemCount { get { return _saveData.Items.Where(h => h.OwningState == ItemOwningState.Picked).Count(); } }
+    public List<HeroSaveData> AllHeroes { get { return _saveData.Heroes; } }
+    public int TotalHeroCount { get { return _saveData.Heroes.Count; } }
+    public int UnownedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Unowned).Count(); } }
+    public int OwnedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Owned).Count(); } }
+    public int PickedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Picked).Count(); } }
     #endregion
 
     #region Map
@@ -76,20 +79,21 @@ public class GameManager
         if (File.Exists(Path))
             return;
 
-        var items = Managers.Data.ItemDic.Values.ToList();
-        foreach (ItemData item in items)
+        var heroes = Managers.Data.HeroDic.Values.ToList();
+        foreach (HeroData hero in heroes)
         {
-            ItemSaveData saveData = new ItemSaveData()
+            HeroSaveData saveData = new HeroSaveData()
             {
-                DataId = item.DataID,
+                DataId = hero.DataID,
             };
 
-            SaveData.Items.Add(saveData);
+            SaveData.Heroes.Add(saveData);
         }
 
         // TEMP
-        SaveData.Items[0].OwningState = ItemOwningState.Picked;
-        SaveData.Items[1].OwningState = ItemOwningState.Unowned;
+        SaveData.Heroes[0].OwningState = HeroOwningState.Picked;
+        SaveData.Heroes[1].OwningState = HeroOwningState.Owned;
+        SaveData.Heroes[2].OwningState = HeroOwningState.Unowned;
     }
     public void SaveGame()
     {

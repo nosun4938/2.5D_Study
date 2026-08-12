@@ -34,7 +34,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ed5ab53fc12d64340a5da3f9d98a9c6d
-    m_Address: PlayerData
+    m_Address: HeroData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
