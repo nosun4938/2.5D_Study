@@ -67,6 +67,27 @@ namespace Data
     }
     #endregion
 
+    #region MonsterData
+    [Serializable]
+    public class MonsterData : CreatureData
+    {
+
+    }
+
+    [Serializable]
+    public class MonsterDataLoader : ILoader<int, MonsterData>
+    {
+        public List<MonsterData> monsters = new List<MonsterData>();
+        public Dictionary<int, MonsterData> MakeDict()
+        {
+            Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
+            foreach (MonsterData monster in monsters)
+                dict.Add(monster.DataID, monster);
+            return dict;
+        }
+    }
+    #endregion
+
     #region NpcData
     [Serializable]
     public class NpcData

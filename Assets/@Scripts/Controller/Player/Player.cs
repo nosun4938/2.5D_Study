@@ -30,7 +30,7 @@ public class Player : Creature
     #region Variables
     public bool HasJumped { get; set; } = false;
     public bool IsJumpPressed { get; set; } = false;
-    
+
     public float CoyoteTimeCounter { get; set; }
     public float JumpBufferTimeCounter { get; set; }
     #endregion
@@ -68,7 +68,7 @@ public class Player : Creature
         HandleBufferedInput();
 
         _stateMachine?.Update();
-            
+
         //Managers.Map.StageTransition.CheckMapChanged(transform.position);
     }
 
@@ -136,6 +136,7 @@ public class Player : Creature
         }
     }
     #endregion
+
     #region Input System
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -258,46 +259,6 @@ public class Player : Creature
         {
             CoyoteTimeCounter -= Time.deltaTime;
         }
-    }
-    #endregion
-
-    #region Move
-    public void HorizontalMove()
-    {
-        float targetSpeed = Horizontal * MoveSpeed;
-
-        float accel = IsGrounded
-            ? Acceleration
-            : Acceleration * 0.8f;
-
-        float decel = IsGrounded
-            ? Deceleration
-            : Deceleration * 0.8f;
-
-        float currentSpeed = Rigidbody.linearVelocity.x;
-
-        if (Mathf.Abs(targetSpeed) > 0.01f)
-        {
-            currentSpeed = Mathf.MoveTowards(
-                currentSpeed,
-                targetSpeed,
-                accel * Time.fixedDeltaTime);
-        }
-        else
-        {
-            currentSpeed = Mathf.MoveTowards(
-                currentSpeed,
-                0f,
-                decel * Time.fixedDeltaTime);
-        }
-
-        Rigidbody.SetVelocityX(currentSpeed);
-    }
-
-    public void LookDirection()
-    {
-        if (Horizontal != 0)
-            LookRight = Horizontal > 0;
     }
     #endregion
 }

@@ -62,6 +62,8 @@ public class Creature : BaseObject
     #if UNITY_EDITOR
         if (GroundCheck == null)
             return;
+        if (CreatureData == null)
+            return;
 
         Handles.color = new Color(1, 0, 0, 0.4f);
         Handles.DrawWireCube(GroundCheck.position, new Vector3(CreatureData.HitBox.Size.x - 0.1f, 0.5f, 0.5f));
@@ -114,6 +116,8 @@ public class Creature : BaseObject
 
         if (ObjectType == EObjectType.Player)
             CreatureData = Managers.Data.HeroDic[templateID];
+        if (ObjectType == EObjectType.Monster)
+            CreatureData = Managers.Data.MonsterDic[templateID];
 
         gameObject.name = $"{CreatureData.DataID}_{CreatureData.DescriptionTextID}";
 
@@ -171,4 +175,44 @@ public class Creature : BaseObject
         if (IsGrounded)
             LastPosition = transform.position;
     }
+
+    #region Move
+    public void HorizontalMove()
+    {
+        float targetSpeed = Horizontal * MoveSpeed;
+
+        float accel = IsGrounded
+            ? Acceleration
+            : Acceleration * 0.8f;
+
+        float decel = IsGrounded
+            ? Deceleration
+            : Deceleration * 0.8f;
+
+        float currentSpeed = Rigidbody.linearVelocity.x;
+
+        if (Mathf.Abs(targetSpeed) > 0.01f)
+        {
+            currentSpeed = Mathf.MoveTowards(
+                currentSpeed,
+                targetSpeed,
+                accel * Time.fixedDeltaTime);
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(
+                currentSpeed,
+                0f,
+                decel * Time.fixedDeltaTime);
+        }
+
+        Rigidbody.SetVelocityX(currentSpeed);
+    }
+
+    public void LookDirection()
+    {
+        if (Horizontal != 0)
+            LookRight = Horizontal > 0;
+    }
+    #endregion
 }

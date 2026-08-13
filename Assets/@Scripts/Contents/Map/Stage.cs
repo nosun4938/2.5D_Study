@@ -64,7 +64,8 @@ public class Stage : MonoBehaviour
                     PlayerSpawnPoint = point.transform.position;
                     break;
                 case EObjectType.Monster:
-                    //Managers.Object.Spawn<Monster>(point.transform.position, dataID);
+                    Monster monster = Managers.Object.Spawn<Monster>(point.transform.position, dataID);
+                    _spawnObjects.Add(monster);
                     break;
                 case EObjectType.Npc:
                     Npc npc = Managers.Object.Spawn<Npc>(point.transform.position, dataID);
@@ -79,6 +80,9 @@ public class Stage : MonoBehaviour
         {
             switch (obj.ObjectType)
             {
+                case EObjectType.Monster:
+                    Managers.Object.Despawn(obj as Monster);
+                    break;
                 case EObjectType.Npc:
                     Managers.Object.Despawn(obj as Npc);
                     break;

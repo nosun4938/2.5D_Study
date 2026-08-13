@@ -7,6 +7,7 @@ using static Define;
 public class ObjectManager
 {
     public Player Player { get; private set; }
+    public HashSet<Monster> Monsters { get; } = new HashSet<Monster>();
     public HashSet<Npc> Npcs { get; } = new HashSet<Npc>();
 
 
@@ -45,6 +46,14 @@ public class ObjectManager
             Player = player;
             player.SetInfo(templateID);
         }
+        else if (obj.ObjectType == EObjectType.Monster)
+        {
+            Debug.Log("Monster Spawn");
+            obj.transform.parent = MonsterRoot;
+            Monster monster = go.GetComponent<Monster>();
+            Monsters.Add(monster);
+            monster.SetInfo(templateID);
+        }
         else if (obj.ObjectType == EObjectType.Npc)
         {
             Debug.Log("NPC Spawn");
@@ -67,6 +76,11 @@ public class ObjectManager
         if (objectType == EObjectType.Player)
         {
             Player = null;
+        }
+        else if (objectType == EObjectType.Monster)
+        {
+            Monster monster = obj as Monster;
+            Monsters.Remove(monster);
         }
         else if (objectType == EObjectType.Npc)
         {

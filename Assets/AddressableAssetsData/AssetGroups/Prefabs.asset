@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3326f4d0be0fd941b41d22c9dd2ba7b
+    m_Address: Monster
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa81d57eb6d027b4497e744a5c5211f0
     m_Address: Player
     m_ReadOnly: 0

@@ -885,7 +885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21c05e715755e44eb612445b27dd6c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_LoadScene
-  test: []
 --- !u!1 &1441493773
 GameObject:
   m_ObjectHideFlags: 0

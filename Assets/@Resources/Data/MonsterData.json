@@ -1,0 +1,45 @@
+{
+  "monsters": [
+    {
+      "DataID": 300001,
+      "DescriptionTextID": "Monster",
+      "IconImage": "null",
+      "PrefabLabel": "Monster",
+      "AnimatorName": "MonsterAnimation",
+
+      "DropItemId": 0,
+
+      "Mass": 1.0,
+      "MaxHp": 10.0,
+      "MoveSpeed": 40.0,
+      "JumpSpeed": 40.0,
+      "Acceleration": 500.0,
+      "Deceleration": 500.0,
+
+      "HitBox": {
+        "Offset": {
+          "x": 0,
+          "y": 3.5,
+          "z": 0
+        },
+        "Size": {
+          "x": 3,
+          "y": 7,
+          "z": 3
+        },
+        "TargetLayer": "Enemy"
+      },
+      "HitCircle": {
+        "Offset": {
+          "x": 0.25,
+          "y": 3.25
+        },
+        "Size": {
+          "x": 2,
+          "y": 7
+        },
+        "TargetLayer": "Enemy"
+      }
+    }
+  ]
+}

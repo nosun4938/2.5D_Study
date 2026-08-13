@@ -20,6 +20,7 @@ public class GameScene : BaseScene
         Managers.Map.StageTransition.SetInfo();
 
         // Hero
+        Debug.Log("Hero?");
         Player player = Managers.Object.Spawn<Player>(new Vector3(0, 0, 0), 202001);
 
         // Camera
