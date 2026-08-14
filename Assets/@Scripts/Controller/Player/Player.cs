@@ -14,19 +14,6 @@ public class Player : Creature
 {
     public Data.HeroData HeroData { get; private set; }
 
-    public override ECreatureState CreatureState
-    {
-        get { return _creatureState; }
-        set
-        {
-            if (_creatureState != value)
-            {
-                base.CreatureState = value;
-                UpdateAnimation();
-            }
-        }
-    }
-
     #region Variables
     public bool HasJumped { get; set; } = false;
     public bool IsJumpPressed { get; set; } = false;
@@ -85,57 +72,6 @@ public class Player : Creature
         // State Machine
         _stateMachine.ChangeState(_groundState);
     }
-
-    #region Animation Helpers
-    public string CurrentAnimName { get; set; }
-    protected void PlayAnimation(string animName)
-    {
-        if (CurrentAnimName == animName)
-            return;
-
-        CurrentAnimName = animName;
-        Animator.Play(animName, 0, 0f);
-    }
-
-    public bool IsAnimFinished()
-    {
-        var info = Animator.GetCurrentAnimatorStateInfo(0);
-        return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
-    }
-    protected override void UpdateAnimation()
-    {
-        switch (CreatureState)
-        {
-            case ECreatureState.Idle:
-                PlayAnimation(AnimName.IDLE);
-                break;
-            case ECreatureState.RunStart:
-                PlayAnimation(AnimName.RUNSTART);
-                break;
-            case ECreatureState.RunMid:
-                PlayAnimation(AnimName.RUNMID);
-                break;
-            case ECreatureState.Stop:
-                PlayAnimation(AnimName.STOP);
-                break;
-            case ECreatureState.Turn:
-                PlayAnimation(AnimName.TURN);
-                break;
-            case ECreatureState.Jump:
-                PlayAnimation(AnimName.JUMP);
-                break;
-            case ECreatureState.Fall:
-                PlayAnimation(AnimName.FALL);
-                break;
-            case ECreatureState.Land:
-                PlayAnimation(AnimName.LAND);
-                break;
-
-            default:
-                break;
-        }
-    }
-    #endregion
 
     #region Input System
     public void OnMove(InputAction.CallbackContext context)

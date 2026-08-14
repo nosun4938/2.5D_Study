@@ -26,6 +26,8 @@ public class Creature : BaseObject
     public Transform GroundCheck { get; protected set; }
     public Transform WallCheck { get; protected set; }
     public Transform HitCheck { get; private set; }
+    public SkillComponent Skills { get; protected set; }
+    public SkillBase PlayingSkill { get; set; }
 
     protected ECreatureState _creatureState = ECreatureState.None;
     public virtual ECreatureState CreatureState
@@ -36,6 +38,7 @@ public class Creature : BaseObject
             if (_creatureState != value)
             {
                 _creatureState = value;
+                UpdateAnimation();
             }
         }
     }
@@ -130,7 +133,11 @@ public class Creature : BaseObject
         HitCircle.center = CreatureData.HitCircle.Offset;
         HitCircle.size = CreatureData.HitCircle.Size;
         HitCircle.isTrigger = true;
-        
+
+        // Skills
+        Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        Skills.SetInfo(this, CreatureData);
+
         // RigidBody
         Rigidbody.mass = CreatureData.Mass;
 
@@ -213,6 +220,57 @@ public class Creature : BaseObject
     {
         if (Horizontal != 0)
             LookRight = Horizontal > 0;
+    }
+    #endregion
+
+    #region Animation Helpers
+    public string CurrentAnimName { get; set; }
+    public void PlayAnimation(string animName)
+    {
+        if (CurrentAnimName == animName)
+            return;
+
+        CurrentAnimName = animName;
+        Animator.Play(animName, 0, 0f);
+    }
+
+    public bool IsAnimFinished()
+    {
+        var info = Animator.GetCurrentAnimatorStateInfo(0);
+        return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
+    }
+    protected override void UpdateAnimation()
+    {
+        switch (CreatureState)
+        {
+            case ECreatureState.Idle:
+                PlayAnimation(AnimName.IDLE);
+                break;
+            case ECreatureState.RunStart:
+                PlayAnimation(AnimName.RUNSTART);
+                break;
+            case ECreatureState.RunMid:
+                PlayAnimation(AnimName.RUNMID);
+                break;
+            case ECreatureState.Stop:
+                PlayAnimation(AnimName.STOP);
+                break;
+            case ECreatureState.Turn:
+                PlayAnimation(AnimName.TURN);
+                break;
+            case ECreatureState.Jump:
+                PlayAnimation(AnimName.JUMP);
+                break;
+            case ECreatureState.Fall:
+                PlayAnimation(AnimName.FALL);
+                break;
+            case ECreatureState.Land:
+                PlayAnimation(AnimName.LAND);
+                break;
+
+            default:
+                break;
+        }
     }
     #endregion
 }

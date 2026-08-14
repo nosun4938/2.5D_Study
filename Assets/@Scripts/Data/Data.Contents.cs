@@ -33,7 +33,7 @@ namespace Data
         public string PrefabLabel;
         public string AnimatorName;
 
-        public int DropItemId;
+        public int DropItemID;
 
         public float Mass;
         public float MaxHp;
@@ -41,6 +41,8 @@ namespace Data
         public float JumpSpeed;
         public float Acceleration;
         public float Deceleration;
+
+        public int NormalAtkID;
 
         public HitBoxData HitBox;
         public HitBoxData HitCircle;
@@ -86,6 +88,7 @@ namespace Data
             return dict;
         }
     }
+    #endregion
     #endregion
 
     #region NpcData
@@ -138,7 +141,37 @@ namespace Data
         }
     }
     #endregion
+    
 
+    #region SkillData
+    [Serializable]
+    public class SkillData
+    {
+        public int DataID;
+        public string Name;
+        public string ClassName;
+        public string Description;
+        public string IconLabel;
+        public string AnimName;
+        public float CoolTime;
+        public float DamageMultiplier;
+        public string SkillSound;
+        public int EffectID;
+        public float EffectSize;
+    }
+
+    [Serializable]
+    public class SkillDataLoader : ILoader<int, SkillData>
+    {
+        public List<SkillData> skills = new List<SkillData>();
+        public Dictionary<int, SkillData> MakeDict()
+        {
+            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
+            foreach (SkillData skill in skills)
+                dict.Add(skill.DataID, skill);
+            return dict;
+        }
+    }
     #endregion
 
     #region TextData

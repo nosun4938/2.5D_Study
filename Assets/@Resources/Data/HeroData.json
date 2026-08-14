@@ -5,9 +5,9 @@
       "DescriptionTextID": "Player",
       "IconImage": "null",
       "PrefabLabel": "Player",
-      "AnimatorName": "PedroAnimationController",
+      "AnimatorName": "PlayerAnimation",
 
-      "DropItemId": 0,
+      "DropItemID": 0,
 
       "Mass": 1.0,
       "MaxHp": 100.0,
@@ -15,6 +15,8 @@
       "JumpSpeed": 40.0,
       "Acceleration": 500.0,
       "Deceleration": 500.0,
+
+      "NormalAtkID": 10001,
 
       "HitBox": {
         "Offset": {
@@ -46,7 +48,7 @@
       "DescriptionTextID": "Player",
       "IconImage": "null",
       "PrefabLabel": "Player",
-      "AnimatorName": "PedroAnimationController",
+      "AnimatorName": "PlayerAnimation",
 
       "DropItemId": 0,
 
@@ -87,7 +89,7 @@
       "DescriptionTextID": "Player",
       "IconImage": "null",
       "PrefabLabel": "Player",
-      "AnimatorName": "PedroAnimationController",
+      "AnimatorName": "PlayerAnimation",
 
       "DropItemId": 0,
 

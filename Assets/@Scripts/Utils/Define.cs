@@ -75,6 +75,8 @@ public static class Define
         Jump,
         Fall,
         Land,
+
+        Skill,
     }
 
     public enum EStateChangeReason
@@ -96,6 +98,7 @@ public static class Define
     public enum ESkillSlot
     {
         None,
+        NormalAtk,
         Jump,
         Dash,
     }
