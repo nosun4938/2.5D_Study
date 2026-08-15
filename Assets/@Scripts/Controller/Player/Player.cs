@@ -29,6 +29,7 @@ public class Player : Creature
     // Movements
     public Player_Ground _groundState { get; private set; }
     public Player_Air _airState { get; private set; }
+    public Player_GroundSkill _groundSkillState { get; private set; }
     #endregion
 
     public override bool Init()
@@ -44,6 +45,7 @@ public class Player : Creature
         _stateMachine = new PlayerStateMachine(this);
         _groundState = new(this, _stateMachine);
         _airState = new(this, _stateMachine);
+        _groundSkillState = new(this, _stateMachine);
 
         return true;
     }
@@ -97,6 +99,11 @@ public class Player : Creature
         BufferInput(ESkillSlot.Dash);
     }
 
+    public void OnNormalAtk(InputAction.CallbackContext context)
+    {
+        BufferInput(ESkillSlot.NormalAtk);
+    }
+
     public void OnInteract(InputAction.CallbackContext context)
     {
 
@@ -112,7 +119,7 @@ public class Player : Creature
     }
 
     private List<BufferedInput> _inputBuffer = new List<BufferedInput>();
-    private float _inputBufferTime = 1.0f;
+    private float _inputBufferTime = 0.2f;
 
     public void BufferInput(ESkillSlot slot)
     {
@@ -139,6 +146,12 @@ public class Player : Creature
             //_stateMachine.ChangeState(_dashState);
             return;
         }
+
+        if (slot == ESkillSlot.NormalAtk)
+        {
+            ChangeReason = EStateChangeReason.NormalAtk;
+            _stateMachine.ChangeState(_groundSkillState);
+        }
     }
     public bool TryConsumeBufferInput(Func<ESkillSlot, bool> canUse, out ESkillSlot slot)
     {
@@ -160,7 +173,7 @@ public class Player : Creature
 
             slot = input.Slot;
             _inputBuffer.RemoveAt(i);
-            //Debug.Log($"{slot} is Used");
+            Debug.Log($"{slot} is Used");
 
             return true;
         }
@@ -174,6 +187,8 @@ public class Player : Creature
             return CanJump();
         if (slot == ESkillSlot.Dash)
             return false;
+        if (slot == ESkillSlot.NormalAtk)
+            return (CanJump() && CreatureState != ECreatureState.Skill);
 
         return true;
     }

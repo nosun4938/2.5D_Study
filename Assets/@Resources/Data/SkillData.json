@@ -6,12 +6,26 @@
       "ClassName": "Hero_NormalAtk",
       "Description": "근접평타",
       "IconLabel": "BattleSkillIcon_01",
-      "AnimName": "NormalAtk",
+      "AnimName": "NormalAtk_First",
+      "Duration": 0,
       "CoolTime": 0.3,
       "DamageMultiplier": 1.0,
       "SkillSound": "Swing",
       "EffectID": 0,
-      "EffectSize": 0
+      "EffectSize": 0,
+      "HitBox": {
+        "Offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+        },
+        "Size": {
+          "x": 20,
+          "y": 20,
+          "z": 5
+        },
+        "TargetLayer": "Enemy"
+      }
     },
     {
       "DataID": 10011,
@@ -20,11 +34,25 @@
       "Description": "근접평타",
       "IconLabel": "BattleSkillIcon_01",
       "AnimName": "NormalAtk",
+      "Duration": 0,
       "CoolTime": 0.3,
       "DamageMultiplier": 1.0,
       "SkillSound": "Swing",
       "EffectID": 0,
-      "EffectSize": 0
+      "EffectSize": 0,
+      "HitBox": {
+        "Offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "Size": {
+          "x": 20,
+          "y": 20,
+          "z": 5
+        },
+        "TargetLayer": "Enemy"
+      }
     }
   ]
 }

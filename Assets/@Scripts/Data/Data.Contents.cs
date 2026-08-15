@@ -153,11 +153,13 @@ namespace Data
         public string Description;
         public string IconLabel;
         public string AnimName;
+        public float Duration;
         public float CoolTime;
         public float DamageMultiplier;
         public string SkillSound;
         public int EffectID;
         public float EffectSize;
+        public HitBoxData HitBox;
     }
 
     [Serializable]

@@ -52,4 +52,16 @@ public class BaseObject : InitBase
     }
 
     #endregion
+
+    #region Battle
+    public virtual void OnDamaged(BaseObject attacker, SkillBase skill)
+    {
+
+    }
+
+    public virtual void OnDead(BaseObject attacker, SkillBase skill)
+    {
+
+    }
+    #endregion
 }

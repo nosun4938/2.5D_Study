@@ -85,6 +85,8 @@ public static class Define
         Jump,
         Fall,
         Land,
+
+        NormalAtk,
     }
 
     public enum EMonsterAIState

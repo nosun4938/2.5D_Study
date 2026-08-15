@@ -27,6 +27,8 @@ public class Creature : BaseObject
     public Transform WallCheck { get; protected set; }
     public Transform HitCheck { get; private set; }
     public SkillComponent Skills { get; protected set; }
+
+    public string CurrentAnimName { get; set; }
     public SkillBase PlayingSkill { get; set; }
 
     protected ECreatureState _creatureState = ECreatureState.None;
@@ -224,7 +226,6 @@ public class Creature : BaseObject
     #endregion
 
     #region Animation Helpers
-    public string CurrentAnimName { get; set; }
     public void PlayAnimation(string animName)
     {
         if (CurrentAnimName == animName)
@@ -239,6 +240,20 @@ public class Creature : BaseObject
         var info = Animator.GetCurrentAnimatorStateInfo(0);
         return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
     }
+
+    public float GetAnimClipLength(string animName)
+    {
+        float length = 0f;
+        foreach (AnimationClip clip in Animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == animName)
+            {
+                length = clip.length;
+            }
+        }
+        return length;
+    }
+
     protected override void UpdateAnimation()
     {
         switch (CreatureState)
@@ -266,6 +281,9 @@ public class Creature : BaseObject
                 break;
             case ECreatureState.Land:
                 PlayAnimation(AnimName.LAND);
+                break;
+            case ECreatureState.Skill:
+                // Skill Animation은 SkillBase의 DoSkill에서 실행
                 break;
 
             default:

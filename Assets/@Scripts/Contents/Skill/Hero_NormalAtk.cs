@@ -18,7 +18,6 @@ public class Hero_NormalAtk : SkillBase
     public override void DoSkill()
     {
         base.DoSkill();
-        Owner.CreatureState = Define.ECreatureState.Skill;
     }
 
     protected override void OnAttackEvent()
