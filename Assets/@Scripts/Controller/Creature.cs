@@ -185,6 +185,40 @@ public class Creature : BaseObject
             LastPosition = transform.position;
     }
 
+    #region Battle
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDamaged(attacker, skill);
+        if (attacker.IsValid() == false)
+            return;
+
+        Creature creature = attacker as Creature;
+        if (creature == null)
+            return;
+
+        // HP 계산
+        float finalDamage = skill.Damage;
+        Hp -= finalDamage;
+        Hp = Mathf.Clamp(Hp, 0, MaxHp);
+        Debug.Log($"{this.name} Hp: {Hp}");
+
+        Managers.Object.ShowDamageFont(CenterPosition + Vector3.up * 10, finalDamage, transform, false);
+
+        if (Hp <= 0)
+        {
+            OnDead(attacker, skill);
+            HitCircle.gameObject.SetActive(false);
+            return;
+        }
+    }
+
+    public override void OnDead(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDead(attacker, skill);
+        gameObject.SetActive(false);
+    }
+    #endregion
+
     #region Move
     public void HorizontalMove()
     {

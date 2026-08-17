@@ -10,6 +10,7 @@ public class BaseObject : InitBase
     public SpriteRenderer SpriteRenderer { get; private set; }
     public Animator Animator { get; private set; }
     public Rigidbody Rigidbody { get; private set; }
+    private HurtFlashEffect HurtFlash;
     public Vector3 CenterPosition { get { return transform.position; } }
     
     public int DataTemplateID { get; set; }
@@ -33,6 +34,7 @@ public class BaseObject : InitBase
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         Rigidbody = gameObject.GetOrAddComponent<Rigidbody>();
+        HurtFlash = gameObject.GetOrAddComponent<HurtFlashEffect>();
         return true;
     }
 
@@ -56,7 +58,7 @@ public class BaseObject : InitBase
     #region Battle
     public virtual void OnDamaged(BaseObject attacker, SkillBase skill)
     {
-
+        HurtFlash.Flash();
     }
 
     public virtual void OnDead(BaseObject attacker, SkillBase skill)

@@ -155,6 +155,7 @@ namespace Data
         public string AnimName;
         public float Duration;
         public float CoolTime;
+        public float Damage;
         public float DamageMultiplier;
         public string SkillSound;
         public int EffectID;

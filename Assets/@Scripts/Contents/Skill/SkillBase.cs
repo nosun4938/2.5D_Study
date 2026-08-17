@@ -15,6 +15,11 @@ public abstract class SkillBase : InitBase
 
     public Data.SkillData SkillData { get; private set; }
 
+    #region Stat
+    public float Damage { get; private set; }
+    public float DamageMultiplier { get; private set; }
+    #endregion
+
     public override bool Init()
     {
         if (base.Init() == false)
@@ -27,6 +32,9 @@ public abstract class SkillBase : InitBase
     {
         Owner = owner;
         SkillData = Managers.Data.SkillDic[skillTemplateID];
+
+        Damage = SkillData.Damage;
+        DamageMultiplier = SkillData.DamageMultiplier;
     }
 
     private void Update()
