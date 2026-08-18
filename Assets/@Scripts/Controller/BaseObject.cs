@@ -12,7 +12,8 @@ public class BaseObject : InitBase
     public Rigidbody Rigidbody { get; private set; }
     private HurtFlashEffect HurtFlash;
     public Vector3 CenterPosition { get { return transform.position; } }
-    
+    public string CurrentAnimName { get; set; }
+
     public int DataTemplateID { get; set; }
 
     bool _lookRight = true;
@@ -64,6 +65,36 @@ public class BaseObject : InitBase
     public virtual void OnDead(BaseObject attacker, SkillBase skill)
     {
 
+    }
+    #endregion
+
+    #region Animation Helpers
+    public void PlayAnimation(string animName)
+    {
+        if (CurrentAnimName == animName)
+            return;
+
+        CurrentAnimName = animName;
+        Animator.Play(animName, 0, 0f);
+    }
+
+    public bool IsAnimFinished()
+    {
+        var info = Animator.GetCurrentAnimatorStateInfo(0);
+        return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
+    }
+
+    public float GetAnimClipLength(string animName)
+    {
+        float length = 0f;
+        foreach (AnimationClip clip in Animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == animName)
+            {
+                length = clip.length;
+            }
+        }
+        return length;
     }
     #endregion
 }

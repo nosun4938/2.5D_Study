@@ -158,7 +158,7 @@ namespace Data
         public float Damage;
         public float DamageMultiplier;
         public string SkillSound;
-        public int EffectID;
+        public List<int> EffectIDs = new List<int>();
         public float EffectSize;
         public HitBoxData HitBox;
     }
@@ -172,6 +172,34 @@ namespace Data
             Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
             foreach (SkillData skill in skills)
                 dict.Add(skill.DataID, skill);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region EffectData
+    [Serializable]
+    public class EffectData
+    {
+        public int DataID;
+        public string Name;
+        public string ClassName;
+        public string Description;
+        public string AnimName;
+        public string IconLabel;
+        public string EffectSound;
+        public EEffectType EffectType;
+    }
+
+    [Serializable]
+    public class EffectDataLoader : ILoader<int, EffectData>
+    {
+        public List<EffectData> effects = new List<EffectData>();
+        public Dictionary<int, EffectData> MakeDict()
+        {
+            Dictionary<int, EffectData> dict = new Dictionary<int, EffectData>();
+            foreach (EffectData effect in effects)
+                dict.Add(effect.DataID, effect);
             return dict;
         }
     }

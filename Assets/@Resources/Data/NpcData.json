@@ -5,7 +5,7 @@
       "DescriptionTextID": "Dummy",
       "NpcType": "Waypoint",
       "PrefabLabel": "Npc",
-      "AnimatorName": "NpcAnimationController",
+      "AnimatorName": "NpcAnimation",
       "InteractionBox": {
         "Offset": {
           "x": 0.25,

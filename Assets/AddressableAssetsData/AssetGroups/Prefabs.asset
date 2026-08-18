@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Prefabs
   m_GUID: 2ce770d7ba8490b46988bfb57a2215e6
   m_SerializeEntries:
+  - m_GUID: 185b52eb93b09f14db28537c1795c6a4
+    m_Address: EffectBase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d07d538f9fb99945bce1716764b53e2
     m_Address: TestMap
     m_ReadOnly: 0

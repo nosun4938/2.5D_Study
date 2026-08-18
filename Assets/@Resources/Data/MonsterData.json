@@ -10,7 +10,7 @@
       "DropItemID": 0,
 
       "Mass": 1.0,
-      "MaxHp": 10.0,
+      "MaxHp": 100.0,
       "MoveSpeed": 40.0,
       "JumpSpeed": 40.0,
       "Acceleration": 500.0,

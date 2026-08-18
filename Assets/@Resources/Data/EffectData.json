@@ -1,0 +1,14 @@
+{
+  "effects": [
+    {
+      "DataID": 60001,
+      "Name": "약경직",
+      "ClassName": "Hitstun",
+      "Description": "약경직",
+      "AnimName": "Hitstun",
+      "IconLabel": "Hitstun",
+      "EffectSound": "Hitstun",
+      "EffectType": "Hitstun"
+    }
+  ]
+}

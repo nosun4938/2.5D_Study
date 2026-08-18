@@ -27,8 +27,7 @@ public class Creature : BaseObject
     public Transform WallCheck { get; protected set; }
     public Transform HitCheck { get; private set; }
     public SkillComponent Skills { get; protected set; }
-
-    public string CurrentAnimName { get; set; }
+    public EffectComponent Effects { get; set; }
     public SkillBase PlayingSkill { get; set; }
 
     protected ECreatureState _creatureState = ECreatureState.None;
@@ -140,32 +139,27 @@ public class Creature : BaseObject
         Skills = gameObject.GetOrAddComponent<SkillComponent>();
         Skills.SetInfo(this, CreatureData);
 
+        // Effects
+        Effects = gameObject.GetOrAddComponent<EffectComponent>();
+        Effects.SetInfo(this);
+
         // RigidBody
         Rigidbody.mass = CreatureData.Mass;
 
         // Animator
-        Animator animator = GetComponent<Animator>();
-        if (animator == null)
-            animator = gameObject.GetOrAddComponent<Animator>();
-
-        animator.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorName);
-        
-        // Sprite Renderer
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-            spriteRenderer = gameObject.GetOrAddComponent<SpriteRenderer>();
+        Animator.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorName);
 
         // Sorting Layer
         switch (ObjectType)
         {
             case EObjectType.Player:
-                spriteRenderer.sortingOrder = SortingLayers.HERO;
+                SpriteRenderer.sortingOrder = SortingLayers.HERO;
                 break;
             case EObjectType.Monster:
-                spriteRenderer.sortingOrder = SortingLayers.MONSTER;
+                SpriteRenderer.sortingOrder = SortingLayers.MONSTER;
                 break;
             case EObjectType.Boss:
-                spriteRenderer.sortingOrder = SortingLayers.BOSS;
+                SpriteRenderer.sortingOrder = SortingLayers.BOSS;
                 break;
         }
 
@@ -209,6 +203,12 @@ public class Creature : BaseObject
             OnDead(attacker, skill);
             HitCircle.gameObject.SetActive(false);
             return;
+        }
+
+        // Effect 적용
+        if (skill.SkillData.EffectIDs != null)
+        {
+            Effects.GenerateEffects(skill.SkillData.EffectIDs.ToArray(), EEffectSpawnType.Skill, skill);
         }
     }
 
@@ -259,35 +259,7 @@ public class Creature : BaseObject
     }
     #endregion
 
-    #region Animation Helpers
-    public void PlayAnimation(string animName)
-    {
-        if (CurrentAnimName == animName)
-            return;
-
-        CurrentAnimName = animName;
-        Animator.Play(animName, 0, 0f);
-    }
-
-    public bool IsAnimFinished()
-    {
-        var info = Animator.GetCurrentAnimatorStateInfo(0);
-        return info.IsName(CurrentAnimName) && info.normalizedTime >= 1f;
-    }
-
-    public float GetAnimClipLength(string animName)
-    {
-        float length = 0f;
-        foreach (AnimationClip clip in Animator.runtimeAnimatorController.animationClips)
-        {
-            if (clip.name == animName)
-            {
-                length = clip.length;
-            }
-        }
-        return length;
-    }
-
+    #region UpdateAnimation
     protected override void UpdateAnimation()
     {
         switch (CreatureState)
@@ -319,7 +291,10 @@ public class Creature : BaseObject
             case ECreatureState.Skill:
                 // Skill Animation은 SkillBase의 DoSkill에서 실행
                 break;
-
+            case ECreatureState.HitStun:
+                PlayAnimation(AnimName.HITSTUN);
+                PlayingSkill.CancelSkill();
+                break;
             default:
                 break;
         }

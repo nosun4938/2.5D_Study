@@ -44,6 +44,7 @@ public static class Define
         Boss,
         Npc,
         Item,
+        Effect
     }
 
     public enum ENpcType
@@ -77,6 +78,10 @@ public static class Define
         Land,
 
         Skill,
+
+        HitStun,
+        Stagger,
+        Airborne
     }
 
     public enum EStateChangeReason
@@ -116,11 +121,23 @@ public static class Define
         WakeUp, // 피격판정 때문에 있는것.
     }
 
-    public enum ESkillEffectType
+    public enum EEffectType
     {
         None,
-        Hit,
-        Slash
+        Hitstun,
+    }
+
+    public enum EEffectSpawnType
+    {
+        Skill,
+        External,
+    }
+
+    public enum EEffectClearType
+    {
+        None,
+        TimeOut,
+        End,
     }
 
     public enum ESkillMoveType
@@ -138,6 +155,12 @@ public static class Define
         English
     }
 
+    public enum EItemGroupType
+    {
+        None,
+
+    }
+
     public static class AnimName
     {
         public const string IDLE = "Idle";
@@ -148,6 +171,7 @@ public static class Define
         public const string JUMP = "Jump";
         public const string FALL = "Fall";
         public const string LAND = "Land";
+        public const string HITSTUN = "Hitstun";
     }
 
     public static class SortingLayers

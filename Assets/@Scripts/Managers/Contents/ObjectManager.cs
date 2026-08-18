@@ -9,6 +9,7 @@ public class ObjectManager
     public Player Player { get; private set; }
     public HashSet<Monster> Monsters { get; } = new HashSet<Monster>();
     public HashSet<Npc> Npcs { get; } = new HashSet<Npc>();
+    public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
 
 
     #region Roots
@@ -27,6 +28,7 @@ public class ObjectManager
     public Transform ItemRoot { get { return GetRootTransform("@Items"); } }
     public Transform InteractionRoot { get { return GetRootTransform("@Interactions"); } }
     public Transform NpcRoot { get { return GetRootTransform("@Npcs"); } }
+    public Transform EffectRoot { get { return GetRootTransform("@Effects"); } }
     #endregion
 
     public void ShowDamageFont(Vector3 position, float damage, Transform parent, bool isCritical = false)
@@ -34,6 +36,12 @@ public class ObjectManager
         GameObject go = Managers.Resource.Instantiate("DamageFont", pooling: true);
         DamageFont damageText = go.GetComponent<DamageFont>();
         damageText.SetInfo(position, damage, parent, isCritical);
+    }
+    public GameObject SpawnGameObject(Vector3 position, string prefabName)
+    {
+        GameObject go = Managers.Resource.Instantiate(prefabName, pooling: true);
+        go.transform.position = position;
+        return go;
     }
 
     public T Spawn<T>(Vector3 position, int templateID) where T : BaseObject
@@ -93,6 +101,11 @@ public class ObjectManager
         {
             Npc npc = obj as Npc;
             Npcs.Remove(npc);
+        }
+        else if (objectType == EObjectType.Effect)
+        {
+            EffectBase effect = obj as EffectBase;
+            Effects.Remove(effect);
         }
 
         Managers.Resource.Destroy(obj.gameObject);

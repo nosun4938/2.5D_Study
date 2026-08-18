@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: a8469a254cd19734eb3a713337b285ee
   m_SerializeEntries:
   - m_GUID: 62bb38a9bd090244dba81227722a37df
-    m_Address: NpcAnimationController
+    m_Address: NpcAnimation
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -29,6 +29,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b6a412eec45cad2458c2cc08df05c31f
     m_Address: MonsterAnimation
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c57e19ce5d2bb444385f37dac225bd14
+    m_Address: EffectAnimation
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

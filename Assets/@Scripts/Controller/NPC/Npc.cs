@@ -26,12 +26,8 @@ public class Npc : BaseObject
         Rigidbody.isKinematic = true;
 
         // Animator
-        Animator animator = GetComponent<Animator>();
-        if (animator == null)
-            animator = gameObject.GetOrAddComponent<Animator>();
-
-        animator.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(NpcData.AnimatorName);
-        animator.Play("Idle", 0, 0);
+        Animator.runtimeAnimatorController = Managers.Resource.Load<RuntimeAnimatorController>(NpcData.AnimatorName);
+        Animator.Play("Idle", 0, 0);
 
         // Sprite Renderer
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();

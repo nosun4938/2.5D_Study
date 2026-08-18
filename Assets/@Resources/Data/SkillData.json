@@ -12,13 +12,15 @@
       "Damage": 5.0,
       "DamageMultiplier": 1.0,
       "SkillSound": "Swing",
-      "EffectID": 0,
+      "EffectIDs": [
+        60001
+      ],
       "EffectSize": 0,
       "HitBox": {
         "Offset": {
           "x": 0,
           "y": 0,
-          "z": 0,
+          "z": 0
         },
         "Size": {
           "x": 20,
@@ -40,7 +42,9 @@
       "Damage": 5.0,
       "DamageMultiplier": 1.0,
       "SkillSound": "Swing",
-      "EffectID": 0,
+      "EffectID": [
+        60001
+      ],
       "EffectSize": 0,
       "HitBox": {
         "Offset": {
