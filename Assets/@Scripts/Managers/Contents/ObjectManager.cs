@@ -10,6 +10,7 @@ public class ObjectManager
     public HashSet<Monster> Monsters { get; } = new HashSet<Monster>();
     public HashSet<Npc> Npcs { get; } = new HashSet<Npc>();
     public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
+    public HashSet<ItemHolder> ItemHolders { get; } = new HashSet<ItemHolder>();
 
 
     #region Roots
@@ -25,10 +26,11 @@ public class ObjectManager
     public Transform MonsterRoot { get { return GetRootTransform("@Monsters"); } }
     public Transform BossRoot { get { return GetRootTransform("@Bosses"); } }
     public Transform ArtifactRoot { get { return GetRootTransform("@Artifacts"); } }
-    public Transform ItemRoot { get { return GetRootTransform("@Items"); } }
     public Transform InteractionRoot { get { return GetRootTransform("@Interactions"); } }
     public Transform NpcRoot { get { return GetRootTransform("@Npcs"); } }
     public Transform EffectRoot { get { return GetRootTransform("@Effects"); } }
+    public Transform ItemHolderRoot { get { return GetRootTransform("@ItemHolders"); } }
+
     #endregion
 
     public void ShowDamageFont(Vector3 position, float damage, Transform parent, bool isCritical = false)
@@ -77,6 +79,13 @@ public class ObjectManager
             Npcs.Add(npc);
             npc.SetInfo(templateID);
         }
+        else if (obj.ObjectType == EObjectType.ItemHolder)
+        {
+            Debug.Log("ItemHolder Spawn");
+            obj.transform.parent = ItemHolderRoot;
+            ItemHolder itemHolder = go.GetComponent<ItemHolder>();
+            ItemHolders.Add(itemHolder);
+        }
 
         return obj as T;
     }
@@ -106,6 +115,11 @@ public class ObjectManager
         {
             EffectBase effect = obj as EffectBase;
             Effects.Remove(effect);
+        }
+        else if (objectType == EObjectType.ItemHolder)
+        {
+            ItemHolder itemHolder = obj as ItemHolder;
+            ItemHolders.Remove(itemHolder);
         }
 
         Managers.Resource.Destroy(obj.gameObject);

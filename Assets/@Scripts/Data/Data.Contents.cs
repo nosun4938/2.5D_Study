@@ -52,7 +52,7 @@ namespace Data
     [Serializable]
     public class HeroData : CreatureData
     {
-        
+
     }
 
     [Serializable]
@@ -122,26 +122,44 @@ namespace Data
     public class ItemData
     {
         public int DataID;
+        public EItemGroupType ItemGroupType;
+        public EItemType ItemType;
+        public EItemSubType ItemSubType;
+
         public string DescriptionTextID;
         public string PrefabLabel;
         public string AnimatorName;
         public HitBoxData InteractionBox;
     }
 
-    [Serializable]
-    public class ItemDataLoader : ILoader<int, ItemData>
+    public class ColleagueData : ItemData
     {
-        public List<ItemData> items = new List<ItemData>();
-        public Dictionary<int, ItemData> MakeDict()
+
+    }
+
+    public class SkillBookData : ItemData
+    {
+
+    }
+
+    public class ConsumableData : ItemData
+    {
+        public int Value;
+    }
+
+    [Serializable]
+    public class ItemDataLoader<T> : ILoader<int, T> where T : ItemData
+    {
+        public List<T> items = new List<T>();
+        public Dictionary<int, T> MakeDict()
         {
-            Dictionary<int, ItemData> dict = new Dictionary<int, ItemData>();
-            foreach (ItemData item in items)
+            Dictionary<int, T> dict = new Dictionary<int, T>();
+            foreach (T item in items)
                 dict.Add(item.DataID, item);
             return dict;
         }
     }
     #endregion
-    
 
     #region SkillData
     [Serializable]

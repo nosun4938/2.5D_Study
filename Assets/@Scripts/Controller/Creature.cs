@@ -215,7 +215,6 @@ public class Creature : BaseObject
     public override void OnDead(BaseObject attacker, SkillBase skill)
     {
         base.OnDead(attacker, skill);
-        gameObject.SetActive(false);
     }
     #endregion
 

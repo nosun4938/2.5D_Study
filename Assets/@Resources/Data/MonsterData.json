@@ -7,10 +7,10 @@
       "PrefabLabel": "Monster",
       "AnimatorName": "MonsterAnimation",
 
-      "DropItemID": 0,
+      "DropItemID": 900001,
 
       "Mass": 1.0,
-      "MaxHp": 100.0,
+      "MaxHp": 15.0,
       "MoveSpeed": 40.0,
       "JumpSpeed": 40.0,
       "Acceleration": 500.0,

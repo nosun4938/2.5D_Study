@@ -43,7 +43,7 @@ public static class Define
         Monster,
         Boss,
         Npc,
-        Item,
+        ItemHolder,
         Effect
     }
 
@@ -159,6 +159,32 @@ public static class Define
     {
         None,
 
+        Colleague,
+        SkillBook,
+        Consumable,
+    }
+
+    public enum EItemType
+    {
+        None,
+
+        Sword,
+        Claymore,
+
+        Sword_A,
+        Sword_B,
+        Claymore_A,
+        Claymore_B,
+
+        Money,
+        Potion,
+    }
+
+    public enum EItemSubType
+    {
+        Gold,
+        Silver,
+        Copper,
     }
 
     public static class AnimName

@@ -61,4 +61,32 @@ public class Monster : Creature
         // State Machine
         _stateMachine.ChangeState(_groundState);
     }
+
+    #region Battle
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDamaged(attacker, skill);
+    }
+
+    public override void OnDead(BaseObject attacker, SkillBase skill)
+    {
+        base.OnDead(attacker, skill);
+
+        ItemData rewardItem = Managers.Data.ItemDic[MonsterData.DropItemID];
+        if (rewardItem != null)
+        {
+            ItemHolder itemHolder = Managers.Object.Spawn<ItemHolder>(transform.position, MonsterData.DropItemID);
+            
+            Vector3 ranLeft = new Vector3(transform.position.x + Random.Range(-10, -15) * 0.1f, transform.position.y + 10, transform.position.z);
+            Vector3 ranRight = new Vector3(transform.position.x + Random.Range(10, 15) * 0.1f, transform.position.y + 10, transform.position.z);
+            Vector3 dropPos = Random.value < 0.5 ? ranLeft : ranRight;
+
+            itemHolder.SetInfo(0, MonsterData.DropItemID, dropPos);
+        }
+
+        Managers.Object.Despawn(this);
+    }
+    #endregion
+
+
 }

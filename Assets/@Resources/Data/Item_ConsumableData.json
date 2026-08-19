@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "DataID": 900001,
+      "ItemGroupType": "Consumable",
+      "ItemType": "Money",
+      "ItemSubType": "Gold",
+      "DescriptionTextID": "Gold",
+      "PrefabLabel": "Money",
+      "AnimatorName": "ItemAnimation",
+      "InteractionBox": {
+        "Offset": {
+          "x": 0.25,
+          "y": 3.25
+        },
+        "Size": {
+          "x": 6,
+          "y": 7
+        },
+        "TargetLayer": "Enemy"
+      },
+      "Value": 10
+    }
+  ]
+}
