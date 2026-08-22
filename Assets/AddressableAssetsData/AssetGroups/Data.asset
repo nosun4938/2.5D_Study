@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a18747b60bcde8e4ba3ee888d428cedd
+    m_Address: Item_SkillBookData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0629a59e93e8aa47bc2fbb0f60f9766
     m_Address: MonsterData
     m_ReadOnly: 0
@@ -41,6 +47,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b3758120a1b8da240bdd77752d28620a
     m_Address: EffectData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d07e6a70814afd144aa7f4c532b49853
+    m_Address: Item_ColleagueData
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

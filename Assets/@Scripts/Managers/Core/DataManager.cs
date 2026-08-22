@@ -17,6 +17,8 @@ public class DataManager
     public Dictionary<string, Data.TextData> TextDic { get; private set; } = new Dictionary<string, Data.TextData>();
 
     public Dictionary<int, Data.ItemData> ItemDic { get; private set; } = new Dictionary<int, Data.ItemData>();
+    public Dictionary<int, Data.ColleagueData> ColleagueDic { get; private set; } = new Dictionary<int, Data.ColleagueData>();
+    public Dictionary<int, Data.SkillBookData> SkillBookDic { get; private set; } = new Dictionary<int, Data.SkillBookData>();
     public Dictionary<int, Data.ConsumableData> ConsumableDic { get; private set; } = new Dictionary<int, Data.ConsumableData>();
 
     public void Init()
@@ -28,10 +30,16 @@ public class DataManager
         EffectDic = LoadJson<Data.EffectDataLoader, int, Data.EffectData>("EffectData").MakeDict();
         TextDic = LoadJson<Data.TextDataLoader, string, Data.TextData>("TextData").MakeDict();
 
+        ColleagueDic = LoadJson<Data.ItemDataLoader<Data.ColleagueData>, int, Data.ColleagueData>("Item_ColleagueData").MakeDict();
+        SkillBookDic = LoadJson<Data.ItemDataLoader<Data.SkillBookData>, int, Data.SkillBookData>("Item_SkillBookData").MakeDict();
         ConsumableDic = LoadJson<Data.ItemDataLoader<Data.ConsumableData>, int, Data.ConsumableData>("Item_ConsumableData").MakeDict();
 
         ItemDic.Clear();
-        foreach(var item in ConsumableDic)
+        foreach (var item in ColleagueDic)
+            ItemDic.Add(item.Key, item.Value);
+        foreach (var item in SkillBookDic)
+            ItemDic.Add(item.Key, item.Value);
+        foreach (var item in ConsumableDic)
             ItemDic.Add(item.Key, item.Value);
     }
 

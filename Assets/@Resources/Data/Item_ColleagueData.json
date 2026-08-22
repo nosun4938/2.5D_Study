@@ -1,13 +1,13 @@
 {
   "items": [
     {
-      "DataID": 900001,
-      "ItemGroupType": "Consumable",
-      "ItemType": "Money",
-      "ItemSubType": "Gold",
-      "Grade": "Common",
-      "DescriptionTextID": "Gold",
-      "PrefabLabel": "Money",
+      "DataID": 700001,
+      "ItemGroupType": "Colleague",
+      "ItemType": "Sword",
+      "ItemSubType": "",
+      "Grade": "Epic",
+      "DescriptionTextID": "Sword",
+      "PrefabLabel": "Sword",
       "AnimatorName": "ItemAnimation",
       "InteractionBox": {
         "Offset": {

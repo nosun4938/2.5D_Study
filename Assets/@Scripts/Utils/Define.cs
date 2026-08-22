@@ -182,9 +182,33 @@ public static class Define
 
     public enum EItemSubType
     {
+        None,
+
         Gold,
         Silver,
         Copper,
+    }
+
+    public enum EItemGrade
+    {
+        None,
+
+        Common,
+        Rare,
+        Epic,
+        Legendary,
+    }
+
+    public enum EEquipSlotType
+    {
+        None,
+        
+        Weapon = 1,
+        Skill_A = 2,
+        Skill_B = 3,
+        EquipMax,
+
+        Inventory = 100,
     }
 
     public static class AnimName

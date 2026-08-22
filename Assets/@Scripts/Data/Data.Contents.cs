@@ -125,6 +125,7 @@ namespace Data
         public EItemGroupType ItemGroupType;
         public EItemType ItemType;
         public EItemSubType ItemSubType;
+        public EItemGrade Grade;
 
         public string DescriptionTextID;
         public string PrefabLabel;

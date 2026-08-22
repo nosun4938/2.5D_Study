@@ -17,6 +17,9 @@ public class GameSaveData
     public int PlayerLevel = 1;
 
     public List<HeroSaveData> Heroes = new List<HeroSaveData>();
+
+    public int ItemDbIDGenerator = 1;
+    public List<ItemSaveData> Items = new List<ItemSaveData>();
 }
 
 [Serializable]
@@ -34,6 +37,17 @@ public enum HeroOwningState
     Unowned,
     Owned,
     Picked,
+}
+
+[Serializable]
+public class ItemSaveData
+{
+    public int InstanceID;
+    public int DbID;
+
+    public int TemplateID;
+    public int Count;
+    public int EquipSlot;
 }
 
 public class GameManager
@@ -57,6 +71,13 @@ public class GameManager
     public int UnownedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Unowned).Count(); } }
     public int OwnedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Owned).Count(); } }
     public int PickedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Picked).Count(); } }
+
+    public int GenerateItemDbID()
+    {
+        int itemDbID = _saveData.ItemDbIDGenerator;
+        _saveData.ItemDbIDGenerator++;
+        return itemDbID;
+    }
     #endregion
 
     #region Map
@@ -90,6 +111,11 @@ public class GameManager
             SaveData.Heroes.Add(saveData);
         }
 
+        // Initial Item
+        {
+
+        }
+
         // TEMP
         SaveData.Heroes[0].OwningState = HeroOwningState.Picked;
         SaveData.Heroes[1].OwningState = HeroOwningState.Owned;
@@ -97,6 +123,20 @@ public class GameManager
     }
     public void SaveGame()
     {
+        // Hero
+
+        // Item
+        {
+            SaveData.Items.Clear();
+            foreach(Item item in Managers.Inventory.AllItems)
+                SaveData.Items.Add(item.SaveData);
+        }
+
+        // Quest
+        {
+
+        }
+
         string jsonStr = JsonUtility.ToJson(Managers.Game.SaveData);
         File.WriteAllText(Path, jsonStr);
         Debug.Log($"Save Game Completed : {Path}");
@@ -111,6 +151,22 @@ public class GameManager
 
         if (data != null)
             Managers.Game.SaveData = data;
+
+        // Hero
+
+        // Item
+        {
+            Managers.Inventory.Clear();
+            foreach(ItemSaveData itemSaveData in data.Items)
+            {
+                Managers.Inventory.AddItem(itemSaveData);
+            }
+        }
+
+        // Quest
+        {
+
+        }
 
         Debug.Log($"Save Game Loaded : {Path}");
         return true;

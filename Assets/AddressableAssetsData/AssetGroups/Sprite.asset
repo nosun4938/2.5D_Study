@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: a773c6cda0ce0924a98716c5ee7fbd57
   m_SerializeEntries:
   - m_GUID: deaabd1258f5ee44fa9b1068c6caa448
-    m_Address: Object_Coin.sprite
+    m_Address: Object_Coin
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
