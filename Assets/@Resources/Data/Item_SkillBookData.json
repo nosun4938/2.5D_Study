@@ -4,7 +4,7 @@
       "DataID": 800001,
       "ItemGroupType": "SkillBook",
       "ItemType": "Sword_A",
-      "ItemSubType": "",
+      "ItemSubType": "None",
       "Grade": "Epic",
       "DescriptionTextID": "Sword_A",
       "PrefabLabel": "Sword_A",

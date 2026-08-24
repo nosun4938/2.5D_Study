@@ -4,7 +4,7 @@
       "DataID": 700001,
       "ItemGroupType": "Colleague",
       "ItemType": "Sword",
-      "ItemSubType": "",
+      "ItemSubType": "None",
       "Grade": "Epic",
       "DescriptionTextID": "Sword",
       "PrefabLabel": "Sword",

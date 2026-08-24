@@ -1,4 +1,5 @@
 using Data;
+using Mono.Cecil;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,8 @@ using static Define;
 
 public class Quest
 {
-    public QuestSaveData SaveData;
-    private QuestData _questData;
-
+    public QuestSaveData SaveData { get; set; }
+    private QuestData QuestData { get; set; }
     public List<QuestTask> _questTasks = new List<QuestTask>();
 
     public int TemplateID
@@ -23,34 +23,73 @@ public class Quest
         set { SaveData.State = value; }
     }
 
-    public Quest(int templateID)
+    public QuestTask GetCurrentTask()
     {
-        TemplateID = templateID;
-        State = EQuestState.None;
-
-        _questData = Managers.Data.QuestDic[templateID];
-        _questTasks.Clear();
-
-        foreach(QuestTaskData taskData in _questData.QuestTasks)
+        foreach (QuestTask task in _questTasks)
         {
-            _questTasks.Add(new QuestTask(taskData));
+            if (task.IsCompleted() == false)
+                return task;
         }
+
+        return null;
     }
 
     public bool IsCompleted()
     {
-        for (int i = 0; i < _questData.QuestTasks.Count; i++)
+        for (int i = 0; i < QuestData.QuestTasks.Count; i++)
         {
-            if (i < SaveData.ProgressCount.Count)
+            if (i >= SaveData.ProgressCount.Count)
                 return false;
 
-            QuestTaskData questTaskData = _questData.QuestTasks[i];
+            QuestTaskData questTaskData = QuestData.QuestTasks[i];
 
             int progressCount = SaveData.ProgressCount[i];
             if (progressCount < questTaskData.ObjectiveCount)
                 return false;
         }
+
         return true;
+    }
+
+    public Quest(QuestSaveData saveData)
+    {
+        SaveData = saveData;
+        State = EQuestState.None;
+        QuestData = Managers.Data.QuestDic[TemplateID];
+
+        _questTasks.Clear();
+
+        for (int i = 0; i < QuestData.QuestTasks.Count; i++)
+        {
+            _questTasks.Add(new QuestTask(QuestData.QuestTasks[i], saveData.ProgressCount[i]));
+        }
+    }
+
+    public void GiveReward()
+    {
+        if (SaveData.State == EQuestState.Rewarded)
+            return;
+
+        if (IsCompleted() == false)
+            return;
+
+        SaveData.State = EQuestState.Rewarded;
+
+        foreach (var reward in QuestData.Rewards)
+        {
+            switch (reward.RewardType)
+            {
+                case EQuestRewardType.Colleague:
+                    
+                    break;
+                case EQuestRewardType.SkillBook:
+                    
+                    break;
+                case EQuestRewardType.Money:
+                    
+                    break;
+            }
+        }
     }
 
     public static Quest MakeQuest(QuestSaveData saveData)
@@ -58,28 +97,27 @@ public class Quest
         if (Managers.Data.QuestDic.TryGetValue(saveData.TemplateID, out QuestData questData) == false)
             return null;
 
-        Quest quest = null;
-
-        quest = new Quest(saveData.TemplateID);
-
-        if (quest != null)
-        {
-            quest.SaveData = saveData;
-        }
-
+        Quest quest = new Quest(saveData);
         return quest;
     }
 
     public void OnHandleBroadcastEvent(EBroadcastEventType eventType, int value)
     {
-        switch (eventType)
+        if (eventType == EBroadcastEventType.QuestClear)
+            return;
+
+        GetCurrentTask().OnHandleBroadcastEvent(eventType, value);
+
+        for (int i = 0; i < _questTasks.Count; i++)
         {
-            case EBroadcastEventType.ChangeMoney:
-                break;
-            case EBroadcastEventType.KillMonster:
-                break;
-            case EBroadcastEventType.LevelUp:
-                break;
+            SaveData.ProgressCount[i] = _questTasks[i].Count;
+        }
+
+        if (IsCompleted() && State != EQuestState.Rewarded)
+        {
+            State = EQuestState.Completed;
+            GiveReward(); // Rewarded State
+            Managers.Game.BroadcastEvent(EBroadcastEventType.QuestClear, QuestData.DataID);
         }
     }
 }

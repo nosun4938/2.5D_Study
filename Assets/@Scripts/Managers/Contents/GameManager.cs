@@ -21,9 +21,7 @@ public class GameSaveData
     public int ItemDbIDGenerator = 1;
     public List<ItemSaveData> Items = new List<ItemSaveData>();
 
-    public List<QuestSaveData> ProcessingQuests = new List<QuestSaveData>();
-    public List<QuestSaveData> CompletedQuests = new List<QuestSaveData>();
-    public List<QuestSaveData> RewardedQuests = new List<QuestSaveData>();
+    public List<QuestSaveData> AllQuests = new List<QuestSaveData>();
 }
 
 [Serializable]
@@ -128,16 +126,35 @@ public class GameManager
 
             SaveData.Heroes.Add(saveData);
         }
-
-        // Initial Item
-        {
-
-        }
-
         // TEMP
         SaveData.Heroes[0].OwningState = HeroOwningState.Picked;
         SaveData.Heroes[1].OwningState = HeroOwningState.Owned;
         SaveData.Heroes[2].OwningState = HeroOwningState.Unowned;
+
+
+        // Quest
+        {
+            var quests = Managers.Data.QuestDic.Values.ToList();
+
+            foreach (QuestData questData in quests)
+            {
+                QuestSaveData saveData = new QuestSaveData()
+                {
+                    TemplateID = questData.DataID,
+                    State = EQuestState.None,
+                    ProgressCount = new List<int>(),
+                    NextResetTime = DateTime.Now,
+                };
+
+                for (int i = 0; i < questData.QuestTasks.Count; i++)
+                {
+                    saveData.ProgressCount.Add(0);
+                }
+
+                Debug.Log("SaveDataQuest");
+                Managers.Quest.AddQuest(saveData);
+            }
+        }
     }
     public void SaveGame()
     {
@@ -152,10 +169,11 @@ public class GameManager
 
         // Quest
         {
-            SaveData.ProcessingQuests.Clear();
-            SaveData.CompletedQuests.Clear();
-            SaveData.RewardedQuests.Clear();
-
+            SaveData.AllQuests.Clear();
+            foreach (Quest quest in Managers.Quest.AllQuests.Values)
+            {
+                SaveData.AllQuests.Add(quest.SaveData);
+            }
         }
 
         string jsonStr = JsonUtility.ToJson(Managers.Game.SaveData);
@@ -188,17 +206,7 @@ public class GameManager
         {
             Managers.Quest.Clear();
 
-            foreach (QuestSaveData questSaveData in data.ProcessingQuests)
-            {
-                Managers.Quest.AddQuest(questSaveData);
-            }
-
-            foreach (QuestSaveData questSaveData in data.CompletedQuests)
-            {
-                Managers.Quest.AddQuest(questSaveData);
-            }
-
-            foreach (QuestSaveData questSaveData in data.RewardedQuests)
+            foreach (QuestSaveData questSaveData in data.AllQuests)
             {
                 Managers.Quest.AddQuest(questSaveData);
             }
