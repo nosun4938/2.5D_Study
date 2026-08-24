@@ -20,6 +20,10 @@ public class GameSaveData
 
     public int ItemDbIDGenerator = 1;
     public List<ItemSaveData> Items = new List<ItemSaveData>();
+
+    public List<QuestSaveData> ProcessingQuests = new List<QuestSaveData>();
+    public List<QuestSaveData> CompletedQuests = new List<QuestSaveData>();
+    public List<QuestSaveData> RewardedQuests = new List<QuestSaveData>();
 }
 
 [Serializable]
@@ -50,6 +54,15 @@ public class ItemSaveData
     public int EquipSlot;
 }
 
+[Serializable]
+public class QuestSaveData
+{
+    public int TemplateID;
+    public EQuestState State = EQuestState.None;
+    public List<int> ProgressCount = new List<int>();
+    public DateTime NextResetTime;
+}
+
 public class GameManager
 {
     #region GameData
@@ -62,8 +75,13 @@ public class GameManager
         private set
         {
             _saveData.Money = value;
-            //(Managers.UI.SceneUI as UI_GameScene)?.RefreshMoneyText();
+            BroadcastEvent(EBroadcastEventType.ChangeMoney, value);
         }
+    }
+
+    public void BroadcastEvent(EBroadcastEventType eventType, int value)
+    {
+        OnBroadcastEvent?.Invoke(eventType, value);
     }
 
     public List<HeroSaveData> AllHeroes { get { return _saveData.Heroes; } }
@@ -134,6 +152,9 @@ public class GameManager
 
         // Quest
         {
+            SaveData.ProcessingQuests.Clear();
+            SaveData.CompletedQuests.Clear();
+            SaveData.RewardedQuests.Clear();
 
         }
 
@@ -165,11 +186,32 @@ public class GameManager
 
         // Quest
         {
+            Managers.Quest.Clear();
 
+            foreach (QuestSaveData questSaveData in data.ProcessingQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            foreach (QuestSaveData questSaveData in data.CompletedQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            foreach (QuestSaveData questSaveData in data.RewardedQuests)
+            {
+                Managers.Quest.AddQuest(questSaveData);
+            }
+
+            Managers.Quest.AddUnknownQuests();
         }
 
         Debug.Log($"Save Game Loaded : {Path}");
         return true;
     }
+    #endregion
+
+    #region Action
+    public event Action<EBroadcastEventType, int> OnBroadcastEvent;
     #endregion
 }

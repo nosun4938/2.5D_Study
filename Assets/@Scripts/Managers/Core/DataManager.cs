@@ -21,6 +21,8 @@ public class DataManager
     public Dictionary<int, Data.SkillBookData> SkillBookDic { get; private set; } = new Dictionary<int, Data.SkillBookData>();
     public Dictionary<int, Data.ConsumableData> ConsumableDic { get; private set; } = new Dictionary<int, Data.ConsumableData>();
 
+    public Dictionary<int, Data.QuestData> QuestDic { get; private set; } = new Dictionary<int, Data.QuestData>();
+
     public void Init()
     {
         HeroDic = LoadJson<Data.HeroDataLoader, int, Data.HeroData>("HeroData").MakeDict();
@@ -29,6 +31,7 @@ public class DataManager
         SkillDic = LoadJson<Data.SkillDataLoader, int, Data.SkillData>("SkillData").MakeDict();
         EffectDic = LoadJson<Data.EffectDataLoader, int, Data.EffectData>("EffectData").MakeDict();
         TextDic = LoadJson<Data.TextDataLoader, string, Data.TextData>("TextData").MakeDict();
+        QuestDic = LoadJson<Data.QuestDataLoader, int, Data.QuestData>("QuestData").MakeDict();
 
         ColleagueDic = LoadJson<Data.ItemDataLoader<Data.ColleagueData>, int, Data.ColleagueData>("Item_ColleagueData").MakeDict();
         SkillBookDic = LoadJson<Data.ItemDataLoader<Data.SkillBookData>, int, Data.SkillBookData>("Item_SkillBookData").MakeDict();

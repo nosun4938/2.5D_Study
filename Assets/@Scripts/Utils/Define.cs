@@ -54,6 +54,7 @@ public static class Define
         Guild,
         Weapon,
         Waypoint,
+        Quest,
     }
     public enum EUIEvent
     {
@@ -209,6 +210,56 @@ public static class Define
         EquipMax,
 
         Inventory = 100,
+    }
+
+    public enum EQuestPeriodType
+    {
+        Once,
+        Daily,
+        Infinite,
+    }
+
+    public enum EQuestCondition
+    {
+        None,
+        Level,
+        ItemLevel,
+    }
+
+    public enum EQuestObjectiveType
+    {
+        KillMonster,
+        EarnMoney,
+        UseItem,
+        Survival,
+        ClearDungeon,
+    }
+
+    public enum EQuestRewardType
+    {
+        Colleague,
+        SkillBook,
+        Money,
+    }
+
+    public enum EQuestState
+    {
+        None,
+        Processing,
+        Completed,
+        Rewarded,
+    }
+
+    public enum EBroadcastEventType
+    {
+        None,
+        ChangeMoney,
+        KillMonster,
+        LevelUp,
+        DungeonClear,
+        ChangeInventory,
+        ChangeCrew,
+        QuestClear,
     }
 
     public static class AnimName

@@ -1,0 +1,109 @@
+{
+  "quests": [
+    {
+      "DataID": 1,
+      "Name": "동료 영입",
+      "DescriptionTextID": "EarnedMeatObjectiveDescription",
+      "QuestPeriodType": 0,
+      "QuestTasks": [
+        {
+          "ObjectiveType": 2,
+          "ObjectiveDataID": 0,
+          "ObjectiveCount": 10
+        }
+      ],
+      "Rewards": [
+        {
+          "RewardType": 0,
+          "RewardDataID": 201000,
+          "RewardCount": 1
+        },
+        {
+          "RewardType": 1,
+          "RewardDataID": 0,
+          "RewardCount": 100
+        }
+      ]
+    },
+    {
+      "DataID": 2,
+      "Name": "몬스터죽이기",
+      "DescriptionTextID": "KilledMonsterDescription",
+      "QuestPeriodType": 1,
+      "QuestTasks": [
+        {
+          "ObjectiveType": 0,
+          "ObjectiveDataID": 0,
+          "ObjectiveCount": 5
+        }
+      ],
+      "Rewards": [
+        {
+          "RewardType": 1,
+          "RewardDataID": 0,
+          "RewardCount": 100
+        }
+      ]
+    },
+    {
+      "DataID": 3,
+      "Name": "몬스터죽이기",
+      "DescriptionTextID": "KilledMonsterDescription",
+      "QuestPeriodType": 2,
+      "QuestTasks": [
+        {
+          "ObjectiveType": 0,
+          "ObjectiveDataID": 0,
+          "ObjectiveCount": 10
+        }
+      ],
+      "Rewards": [
+        {
+          "RewardType": 1,
+          "RewardDataID": 0,
+          "RewardCount": 100
+        }
+      ]
+    },
+    {
+      "DataID": 4,
+      "Name": "골드모으기",
+      "DescriptionTextID": "EarnedGoldObjectiveDescription",
+      "QuestPeriodType": 1,
+      "QuestTasks": [
+        {
+          "ObjectiveType": 1,
+          "ObjectiveDataID": 0,
+          "ObjectiveCount": 10
+        }
+      ],
+      "Rewards": [
+        {
+          "RewardType": 2,
+          "RewardDataID": 0,
+          "RewardCount": 120
+        }
+      ]
+    },
+    {
+      "DataID": 5,
+      "Name": "골드모으기",
+      "DescriptionTextID": "EarnedGoldObjectiveDescription",
+      "QuestPeriodType": 1,
+      "QuestTasks": [
+        {
+          "ObjectiveType": 1,
+          "ObjectiveDataID": 0,
+          "ObjectiveCount": 100
+        }
+      ],
+      "Rewards": [
+        {
+          "RewardType": 1,
+          "RewardDataID": 0,
+          "RewardCount": 1
+        }
+      ]
+    }
+  ]
+}

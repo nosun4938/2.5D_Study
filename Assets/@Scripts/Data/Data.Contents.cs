@@ -96,10 +96,12 @@ namespace Data
     public class NpcData
     {
         public int DataID;
+        public string Name;
         public string DescriptionTextID;
         public ENpcType NpcType;
         public string PrefabLabel;
         public string AnimatorName;
+        public int QuestDataID;
         public HitBoxData InteractionBox;
     }
 
@@ -246,5 +248,48 @@ namespace Data
         }
     }
 
+    #endregion
+
+    #region QuestData
+    [Serializable]
+    public class QuestData
+    {
+        public int DataID;
+        public string Name;
+        public string DescriptionTextID;
+
+        public EQuestPeriodType QuestPeriodType;
+        public List<QuestTaskData> QuestTasks = new List<QuestTaskData>();
+        public List<QuestRewardData> Rewards = new List<QuestRewardData>();
+    }
+
+    [Serializable]
+    public class QuestTaskData
+    {
+        public EQuestObjectiveType ObjectiveType;
+        public int ObjectiveDataID;
+        public int ObjectiveCount;
+    }
+
+    [Serializable]
+    public class QuestRewardData
+    {
+        public EQuestRewardType RewardType;
+        public int RewardDataID;
+        public int RewardCount;
+    }
+
+    [Serializable]
+    public class QuestDataLoader : ILoader<int, QuestData>
+    {
+        public List<QuestData> quests = new List<QuestData>();
+        public Dictionary<int, QuestData> MakeDict()
+        {
+            Dictionary<int, QuestData> dict = new Dictionary<int, QuestData>();
+            foreach (QuestData quest in quests)
+                dict.Add(quest.DataID, quest);
+            return dict;
+        }
+    }
     #endregion
 }

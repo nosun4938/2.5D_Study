@@ -72,6 +72,7 @@ public class Monster : Creature
     {
         base.OnDead(attacker, skill);
 
+        // Item Drop
         ItemData rewardItem = Managers.Data.ItemDic[MonsterData.DropItemID];
         if (rewardItem != null)
         {
@@ -83,6 +84,9 @@ public class Monster : Creature
 
             itemHolder.SetInfo(0, MonsterData.DropItemID, dropPos);
         }
+
+        // BroadCast
+        Managers.Game.BroadcastEvent(EBroadcastEventType.KillMonster, MonsterData.DataID);
 
         Managers.Object.Despawn(this);
     }
