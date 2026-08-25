@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class PlayerStateMachine
+public class HeroStateMachine
 {
-    private Player Owner;
-    private PlayerStateBase _currentState;
-    public PlayerStateBase CurrentState { get { return _currentState; } }
-    public PlayerStateMachine(Player player)
+    private Hero Owner;
+    private HeroStateBase _currentState;
+    public HeroStateBase CurrentState { get { return _currentState; } }
+    public HeroStateMachine(Hero hero)
     {
-        Owner = player;
+        Owner = hero;
     }
 
-    public void ChangeState(PlayerStateBase newState)
+    public void ChangeState(HeroStateBase newState)
     {
         //Debug.Log($"ChangeState: {_currentState?.GetType().Name} => {newState?.GetType().Name}");
         if (_currentState == newState)

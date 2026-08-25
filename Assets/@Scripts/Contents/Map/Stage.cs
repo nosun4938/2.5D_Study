@@ -60,7 +60,7 @@ public class Stage : MonoBehaviour
 
             switch (objectType)
             {
-                case EObjectType.Player:
+                case EObjectType.Hero:
                     PlayerSpawnPoint = point.transform.position;
                     break;
                 case EObjectType.Monster:

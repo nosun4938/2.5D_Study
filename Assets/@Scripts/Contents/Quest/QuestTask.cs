@@ -31,7 +31,13 @@ public class QuestTask
                     Count += value;
                 }
                 break;
+            case EQuestObjectiveType.SpendMoney:
             case EQuestObjectiveType.EarnMoney:
+                if (eventType == EBroadcastEventType.ChangeMoney)
+                {
+                    Count += value;
+                }
+                break;
             case EQuestObjectiveType.UseItem:
                 break;
             case EQuestObjectiveType.Survival:

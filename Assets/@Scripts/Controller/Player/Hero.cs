@@ -8,9 +8,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using static Define;
-using static UnityEngine.UI.GridLayoutGroup;
 
-public class Player : Creature
+public class Hero : Creature
 {
     public Data.HeroData HeroData { get; private set; }
 
@@ -23,13 +22,13 @@ public class Player : Creature
     #endregion
 
     #region StateMachine
-    PlayerStateMachine _stateMachine;
+    HeroStateMachine _stateMachine;
     public EStateChangeReason ChangeReason { get; set; }
 
     // Movements
-    public Player_Ground _groundState { get; private set; }
-    public Player_Air _airState { get; private set; }
-    public Player_GroundSkill _groundSkillState { get; private set; }
+    public Hero_Ground _groundState { get; private set; }
+    public Hero_Air _airState { get; private set; }
+    public Hero_GroundSkill _groundSkillState { get; private set; }
     #endregion
 
     public override bool Init()
@@ -39,10 +38,10 @@ public class Player : Creature
 
         // Layer
         gameObject.layer = LayerMask.NameToLayer("Player");
-        ObjectType = EObjectType.Player;
+        ObjectType = EObjectType.Hero;
 
         // StateMachine
-        _stateMachine = new PlayerStateMachine(this);
+        _stateMachine = new HeroStateMachine(this);
         _groundState = new(this, _stateMachine);
         _airState = new(this, _stateMachine);
         _groundSkillState = new(this, _stateMachine);

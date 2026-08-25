@@ -29,9 +29,9 @@ public class CameraController : InitBase
         return true;
     }
 
-    public void SetInfo(Player player)
+    public void SetInfo(Hero hero)
     {
-        _cinemachineCamera.Target.TrackingTarget = player.transform;
+        _cinemachineCamera.Target.TrackingTarget = hero.transform;
         _cinemachineCamera.Lens.FieldOfView = 60;
 
         _cinemachinePosition.CameraDistance = 50;

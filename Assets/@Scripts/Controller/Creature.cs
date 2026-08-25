@@ -118,7 +118,7 @@ public class Creature : BaseObject
     {
         DataTemplateID = templateID;
 
-        if (ObjectType == EObjectType.Player)
+        if (ObjectType == EObjectType.Hero)
             CreatureData = Managers.Data.HeroDic[templateID];
         if (ObjectType == EObjectType.Monster)
             CreatureData = Managers.Data.MonsterDic[templateID];
@@ -152,7 +152,7 @@ public class Creature : BaseObject
         // Sorting Layer
         switch (ObjectType)
         {
-            case EObjectType.Player:
+            case EObjectType.Hero:
                 SpriteRenderer.sortingOrder = SortingLayers.HERO;
                 break;
             case EObjectType.Monster:

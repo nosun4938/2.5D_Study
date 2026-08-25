@@ -1,10 +1,10 @@
 using UnityEngine;
 using static Define;
 
-public class Player_GroundSkill : PlayerStateBase
+public class Hero_GroundSkill : HeroStateBase
 {
     SkillBase _nowSkill;
-    public Player_GroundSkill(Player owner, PlayerStateMachine stateMachine) : base(owner, stateMachine) { }
+    public Hero_GroundSkill(Hero owner, HeroStateMachine stateMachine) : base(owner, stateMachine) { }
     public override void Enter()
     {
         base.Enter();

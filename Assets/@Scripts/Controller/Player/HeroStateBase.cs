@@ -1,11 +1,11 @@
 using UnityEngine;
 using static Define;
 
-public class PlayerStateBase
+public class HeroStateBase
 {
-    protected Player Owner;
-    protected PlayerStateMachine _stateMachine;
-    protected PlayerStateBase(Player owner, PlayerStateMachine stateMachine)
+    protected Hero Owner;
+    protected HeroStateMachine _stateMachine;
+    protected HeroStateBase(Hero owner, HeroStateMachine stateMachine)
     {
         Owner = owner;
         _stateMachine = stateMachine;

@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static Define;
 
-public class Player_Ground : PlayerStateBase
+public class Hero_Ground : HeroStateBase
 {
-    public Player_Ground(Player owner, PlayerStateMachine stateMachine) : base(owner, stateMachine) { }
+    public Hero_Ground(Hero owner, HeroStateMachine stateMachine) : base(owner, stateMachine) { }
     public override void Enter()
     {
         base.Enter();

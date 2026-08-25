@@ -2,10 +2,20 @@ using Data;
 using UnityEngine;
 using static Define;
 
+public interface INpcInteraction
+{
+    public void SetInfo(Npc owner);
+    public void HandleOnClickEvent();
+    public bool CanInteract();
+}
+
 public class Npc : BaseObject
 {
     public NpcData NpcData { get; set; }
+    public ENpcType NpcType { get { return NpcData.NpcType; } }
+    public INpcInteraction Interaction { get; private set; }
     public BoxCollider InteractionBox { get; private set; }
+    public bool inInteractionBox;
     private UI_NpcInteraction _ui;
 
     public override bool Init()
@@ -16,6 +26,18 @@ public class Npc : BaseObject
         ObjectType = EObjectType.Npc;
 
         return true;
+    }
+
+    private void Update()
+    {
+        if (Interaction != null && Interaction.CanInteract() && inInteractionBox)
+        {
+            _ui.gameObject.SetActive(true);
+        }
+        else
+        {
+            _ui.gameObject.SetActive(false);
+        }
     }
 
     public void SetInfo(int dataId)
@@ -49,6 +71,17 @@ public class Npc : BaseObject
         _ui.SetInfo(DataTemplateID, this);
         _ui.gameObject.SetActive(false);
 
+        // Interaction Interface
+        switch (NpcData.NpcType)
+        {
+            case ENpcType.Waypoint:
+                Interaction = new WaypointInteraction();
+                break;
+            case ENpcType.Quest:
+                Interaction = new QuestInteraction();
+                break;
+        }
+        Interaction?.SetInfo(this);
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -56,7 +89,7 @@ public class Npc : BaseObject
         if (collider.CompareTag("Player") == false)
             return;
 
-        _ui.gameObject.SetActive(true);
+        inInteractionBox = true;
     }
 
     private void OnTriggerExit(Collider collider)
@@ -64,6 +97,11 @@ public class Npc : BaseObject
         if (collider.CompareTag("Player") == false)
             return;
 
-        _ui.gameObject.SetActive(false);
+        inInteractionBox = false;
+    }
+
+    public virtual void OnClickEvent()
+    {
+        Interaction?.HandleOnClickEvent();
     }
 }

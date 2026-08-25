@@ -86,7 +86,7 @@ public class Quest
                     
                     break;
                 case EQuestRewardType.Money:
-                    
+                    Debug.Log($"Get Money");
                     break;
             }
         }

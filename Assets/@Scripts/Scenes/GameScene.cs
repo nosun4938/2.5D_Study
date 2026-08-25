@@ -21,7 +21,7 @@ public class GameScene : BaseScene
 
         // Hero
         Debug.Log("Hero?");
-        Player player = Managers.Object.Spawn<Player>(new Vector3(0, 0, 0), 202001);
+        Hero player = Managers.Object.Spawn<Hero>(new Vector3(0, 0, 0), 202001);
 
         // Camera
         CameraController camera = Camera.main.GetComponent<CameraController>();

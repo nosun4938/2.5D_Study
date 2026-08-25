@@ -39,7 +39,7 @@ public static class Define
     public enum EObjectType
     {
         None,
-        Player,
+        Hero,
         Monster,
         Boss,
         Npc,
@@ -229,6 +229,7 @@ public static class Define
     public enum EQuestObjectiveType
     {
         KillMonster,
+        SpendMoney,
         EarnMoney,
         UseItem,
         Survival,
@@ -260,6 +261,11 @@ public static class Define
         ChangeInventory,
         ChangeCrew,
         QuestClear,
+    }
+
+    public enum EResourceType
+    {
+        Money,
     }
 
     public static class AnimName

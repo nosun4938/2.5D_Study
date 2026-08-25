@@ -4,11 +4,11 @@ using UnityEngine.Assertions.Must;
 using static Define;
 using static UnityEngine.UI.GridLayoutGroup;
 
-public class Player_Air : PlayerStateBase
+public class Hero_Air : HeroStateBase
 {
     private Vector3 JumpCutMultiplier = new Vector3(1, 0.5f, 1);
 
-    public Player_Air(Player owner, PlayerStateMachine stateMachine) : base(owner, stateMachine) { }
+    public Hero_Air(Hero owner, HeroStateMachine stateMachine) : base(owner, stateMachine) { }
     public override void Enter()
     {
         base.Enter();

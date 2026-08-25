@@ -27,7 +27,7 @@
       "NpcType": "Quest",
       "PrefabLabel": "Npc",
       "AnimatorName": "NpcAnimation",
-      "QuestDataID": 0,
+      "QuestDataID": 1,
       "InteractionBox": {
         "Offset": {
           "x": 0.25,

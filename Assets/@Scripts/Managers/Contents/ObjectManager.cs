@@ -6,7 +6,7 @@ using static Define;
 
 public class ObjectManager
 {
-    public Player Player { get; private set; }
+    public Hero Player { get; private set; }
     public HashSet<Monster> Monsters { get; } = new HashSet<Monster>();
     public HashSet<Npc> Npcs { get; } = new HashSet<Npc>();
     public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
@@ -22,7 +22,8 @@ public class ObjectManager
 
         return root.transform;
     }
-    
+
+    public Transform HeroRoot { get { return GetRootTransform("@Heroes"); } }
     public Transform MonsterRoot { get { return GetRootTransform("@Monsters"); } }
     public Transform BossRoot { get { return GetRootTransform("@Bosses"); } }
     public Transform ArtifactRoot { get { return GetRootTransform("@Artifacts"); } }
@@ -56,12 +57,13 @@ public class ObjectManager
 
         BaseObject obj = go.GetComponent<BaseObject>();
         
-        if (obj.ObjectType == EObjectType.Player)
+        if (obj.ObjectType == EObjectType.Hero)
         {
-            Debug.Log("Player Spawn");
-            Player player = go.GetComponent<Player>();
-            Player = player;
-            player.SetInfo(templateID);
+            Debug.Log("Hero Spawn");
+            obj.transform.parent = HeroRoot;
+            Hero hero = go.GetComponent<Hero>();
+            Player = hero;
+            hero.SetInfo(templateID);
         }
         else if (obj.ObjectType == EObjectType.Monster)
         {
@@ -97,7 +99,7 @@ public class ObjectManager
 
         EObjectType objectType = obj.ObjectType;
 
-        if (objectType == EObjectType.Player)
+        if (objectType == EObjectType.Hero)
         {
             Player = null;
         }

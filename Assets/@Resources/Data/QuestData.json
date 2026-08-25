@@ -7,7 +7,7 @@
       "QuestPeriodType": "Once",
       "QuestTasks": [
         {
-          "ObjectiveType": "UseItem",
+          "ObjectiveType": "SpendMoney",
           "ObjectiveDataID": 0,
           "ObjectiveCount": 10
         }

@@ -30,14 +30,8 @@ public class UI_NpcInteraction : UI_Base
 
     private void OnClickInteractionButton(PointerEventData evt)
     {
-        Debug.Log("On Click Button");
-        switch (_owner.NpcData.NpcType)
-        {
-            case ENpcType.Waypoint:
-                Managers.UI.ShowPopupUI<UI_WaypointPopup>();
-                break;
-            default:
-                break;
-        }
+        _owner?.OnClickEvent();
+
+        Debug.Log("On Click Interaction Button");
     }
 }

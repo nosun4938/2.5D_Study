@@ -16,11 +16,9 @@ public class GameSaveData
     public int Money = 0;
     public int PlayerLevel = 1;
 
-    public List<HeroSaveData> Heroes = new List<HeroSaveData>();
-
     public int ItemDbIDGenerator = 1;
+    public List<HeroSaveData> Heroes = new List<HeroSaveData>();
     public List<ItemSaveData> Items = new List<ItemSaveData>();
-
     public List<QuestSaveData> AllQuests = new List<QuestSaveData>();
 }
 
@@ -72,8 +70,44 @@ public class GameManager
         get { return _saveData.Money; }
         private set
         {
+            int diff = _saveData.Money - value;
             _saveData.Money = value;
-            BroadcastEvent(EBroadcastEventType.ChangeMoney, value);
+            OnBroadcastEvent?.Invoke(EBroadcastEventType.ChangeMoney, diff);
+        }
+    }
+
+    public bool CheckResource(EResourceType eResourceType, int amount)
+    {
+        switch (eResourceType)
+        {
+            case EResourceType.Money:
+                return Money >= amount;
+            default:
+                return false;
+        }
+    }
+
+    public bool SpendResource(EResourceType eResourceType, int amount)
+    {
+        if (CheckResource(eResourceType, amount) == false)
+            return false;
+
+        switch (eResourceType)
+        {
+            case EResourceType.Money:
+                Money -= amount;
+                break;
+        }
+        return true;
+    }
+
+    public void EarnResource(EResourceType eResourceType, int amount)
+    {
+        switch (eResourceType)
+        {
+            case EResourceType.Money:
+                Money += amount;
+                break;
         }
     }
 
@@ -130,7 +164,7 @@ public class GameManager
         SaveData.Heroes[0].OwningState = HeroOwningState.Picked;
         SaveData.Heroes[1].OwningState = HeroOwningState.Owned;
         SaveData.Heroes[2].OwningState = HeroOwningState.Unowned;
-
+        Money = 100;
 
         // Quest
         {
