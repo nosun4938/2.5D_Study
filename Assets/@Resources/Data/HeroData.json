@@ -17,6 +17,8 @@
       "Deceleration": 500.0,
 
       "NormalAtkID": 10001,
+      "SkillAID": 0,
+      "SkillBID": 0,
 
       "HitBox": {
         "Offset": {
@@ -61,6 +63,10 @@
       "Acceleration": 500.0,
       "Deceleration": 500.0,
 
+      "NormalAtkID": 10001,
+      "SkillAID": 0,
+      "SkillBID": 0,
+
       "HitBox": {
         "Offset": {
           "x": 0,
@@ -103,6 +109,10 @@
       "JumpSpeed": 40.0,
       "Acceleration": 500.0,
       "Deceleration": 500.0,
+
+      "NormalAtkID": 10001,
+      "SkillAID": 0,
+      "SkillBID": 0,
 
       "HitBox": {
         "Offset": {

@@ -156,6 +156,13 @@ public static class Define
         English
     }
 
+    public enum EHeroOwningState
+    {
+        Unowned,
+        Owned,
+        Picked,
+    }
+
     public enum EItemGroupType
     {
         None,

@@ -80,7 +80,9 @@ public class Quest
             switch (reward.RewardType)
             {
                 case EQuestRewardType.Colleague:
-                    
+                    int heroID = reward.RewardDataID;
+                    Managers.Hero.AcquireHeroCard(heroID, reward.RewardCount);
+                    Managers.Hero.PickHero(heroID, Vector3.zero);
                     break;
                 case EQuestRewardType.SkillBook:
                     

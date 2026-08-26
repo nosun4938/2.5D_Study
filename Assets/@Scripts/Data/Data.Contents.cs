@@ -52,7 +52,8 @@ namespace Data
     [Serializable]
     public class HeroData : CreatureData
     {
-
+        public int SkillAID;
+        public int SkillBID;
     }
 
     [Serializable]

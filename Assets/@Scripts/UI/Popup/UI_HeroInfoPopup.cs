@@ -38,8 +38,8 @@ public class UI_HeroInfoPopup : UI_Popup
 		HeroIconImage,
 	}
 
-	int _heroDataId = -1;
-	HeroSaveData SaveData { get { return Managers.Game.AllHeroes.Find(h => h.DataId == _heroDataId); } }
+	int _heroDataID = -1;
+	HeroSaveData SaveData { get { return Managers.Game.AllHeroes.Find(h => h.DataID == _heroDataID); } }
 
 	public override bool Init()
 	{
@@ -62,9 +62,9 @@ public class UI_HeroInfoPopup : UI_Popup
 		return true;
 	}
 
-	public void SetInfo(int heroDataId)
+	public void SetInfo(int heroDataID)
 	{
-		_heroDataId = heroDataId;
+		_heroDataID = heroDataID;
 		Refresh();
 	}
 
@@ -73,10 +73,10 @@ public class UI_HeroInfoPopup : UI_Popup
 		if (_init == false)
 			return;
 
-		if (_heroDataId < 0)
+		if (_heroDataID < 0)
 			return;
 
-		Data.HeroData data = Managers.Data.HeroDic[_heroDataId];
+		Data.HeroData data = Managers.Data.HeroDic[_heroDataID];
 
 		GetImage((int)Images.HeroIconImage).sprite = Managers.Resource.Load<Sprite>(data.IconImage);
 		GetText((int)Texts.NameText).text = data.DescriptionTextID;

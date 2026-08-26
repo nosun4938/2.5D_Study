@@ -28,15 +28,8 @@ public class HeroSaveData
     public int Level = 1;
     public int Exp = 10;
 
-    public int DataId = 0;
-    public HeroOwningState OwningState = HeroOwningState.Unowned;
-}
-
-public enum HeroOwningState
-{
-    Unowned,
-    Owned,
-    Picked,
+    public int DataID = 0;
+    public EHeroOwningState OwningState = EHeroOwningState.Unowned;
 }
 
 [Serializable]
@@ -118,9 +111,9 @@ public class GameManager
 
     public List<HeroSaveData> AllHeroes { get { return _saveData.Heroes; } }
     public int TotalHeroCount { get { return _saveData.Heroes.Count; } }
-    public int UnownedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Unowned).Count(); } }
-    public int OwnedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Owned).Count(); } }
-    public int PickedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == HeroOwningState.Picked).Count(); } }
+    public int UnownedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == EHeroOwningState.Unowned).Count(); } }
+    public int OwnedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == EHeroOwningState.Owned).Count(); } }
+    public int PickedHeroCount { get { return _saveData.Heroes.Where(h => h.OwningState == EHeroOwningState.Picked).Count(); } }
 
     public int GenerateItemDbID()
     {
@@ -150,20 +143,21 @@ public class GameManager
         if (File.Exists(Path))
             return;
 
+        // Hero
         var heroes = Managers.Data.HeroDic.Values.ToList();
         foreach (HeroData hero in heroes)
         {
             HeroSaveData saveData = new HeroSaveData()
             {
-                DataId = hero.DataID,
+                DataID = hero.DataID,
             };
 
             SaveData.Heroes.Add(saveData);
         }
         // TEMP
-        SaveData.Heroes[0].OwningState = HeroOwningState.Picked;
-        SaveData.Heroes[1].OwningState = HeroOwningState.Owned;
-        SaveData.Heroes[2].OwningState = HeroOwningState.Unowned;
+        SaveData.Heroes[0].OwningState = EHeroOwningState.Picked;
+        SaveData.Heroes[1].OwningState = EHeroOwningState.Owned;
+        SaveData.Heroes[2].OwningState = EHeroOwningState.Unowned;
         Money = 100;
 
         // Quest
@@ -193,6 +187,13 @@ public class GameManager
     public void SaveGame()
     {
         // Hero
+        /*{
+            SaveData.Heroes.Clear();
+            foreach (HeroInfo heroinfo in Managers.Hero.AllHeroInfos.Values)
+            {
+                SaveData.Heroes.Add(heroinfo.SaveData);
+            }
+        }*/
 
         // Item
         {
@@ -226,6 +227,15 @@ public class GameManager
             Managers.Game.SaveData = data;
 
         // Hero
+        {
+            Managers.Hero.AllHeroInfos.Clear();
+
+            foreach(HeroSaveData saveData in data.Heroes)
+            {
+                Managers.Hero.AddHeroInfo(saveData);
+            }
+            Managers.Hero.AddUnknownHeroes();
+        }
 
         // Item
         {
