@@ -28,6 +28,7 @@ namespace Data
     public class CreatureData
     {
         public int DataID;
+        public string Name;
         public string DescriptionTextID;
         public string IconImage;
         public string PrefabLabel;
@@ -54,6 +55,16 @@ namespace Data
     {
         public int SkillAID;
         public int SkillBID;
+
+        public bool Validate()
+        {
+            if (Managers.Data.TextDic.TryGetValue(Name, out var nameText) == false)
+                return false;
+            if (Managers.Data.TextDic.TryGetValue(DescriptionTextID, out var DescText) == false)
+                return false;
+
+            return true;
+        }
     }
 
     [Serializable]
@@ -66,6 +77,18 @@ namespace Data
             foreach (HeroData hero in heroes)
                 dict.Add(hero.DataID, hero);
             return dict;
+        }
+
+        public bool Validate()
+        {
+            bool validate = true;
+
+            foreach (HeroData hero in heroes)
+            {
+                if (hero.Validate() == false)
+                    validate = false;
+            }
+            return validate;
         }
     }
     #endregion
@@ -87,6 +110,11 @@ namespace Data
             foreach (MonsterData monster in monsters)
                 dict.Add(monster.DataID, monster);
             return dict;
+        }
+        public bool Validate()
+        {
+
+            return true;
         }
     }
     #endregion
@@ -116,6 +144,11 @@ namespace Data
             foreach (NpcData npc in npcs)
                 dict.Add(npc.DataID, npc);
             return dict;
+        }
+        public bool Validate()
+        {
+
+            return true;
         }
     }
     #endregion
@@ -162,6 +195,11 @@ namespace Data
                 dict.Add(item.DataID, item);
             return dict;
         }
+        public bool Validate()
+        {
+
+            return true;
+        }
     }
     #endregion
 
@@ -196,6 +234,11 @@ namespace Data
                 dict.Add(skill.DataID, skill);
             return dict;
         }
+        public bool Validate()
+        {
+
+            return true;
+        }
     }
     #endregion
 
@@ -224,6 +267,11 @@ namespace Data
                 dict.Add(effect.DataID, effect);
             return dict;
         }
+        public bool Validate()
+        {
+
+            return true;
+        }
     }
     #endregion
 
@@ -246,6 +294,11 @@ namespace Data
             foreach (TextData text in texts)
                 dict.Add(text.DataID, text);
             return dict;
+        }
+        public bool Validate()
+        {
+
+            return true;
         }
     }
 
@@ -290,6 +343,11 @@ namespace Data
             foreach (QuestData quest in quests)
                 dict.Add(quest.DataID, quest);
             return dict;
+        }
+        public bool Validate()
+        {
+
+            return true;
         }
     }
     #endregion

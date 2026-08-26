@@ -5,7 +5,7 @@ using UnityEngine;
 public interface ILoader<Key, Value>
 {
     Dictionary<Key, Value> MakeDict();
-    //bool Validate();
+    bool Validate();
 }
 
 public class DataManager
@@ -26,7 +26,9 @@ public class DataManager
 
     public void Init()
     {
-        HeroDic = LoadJson<Data.HeroDataLoader, int, Data.HeroData>("HeroData").MakeDict();
+        Data.HeroDataLoader heroDataLoader = LoadJson<Data.HeroDataLoader, int, Data.HeroData>("HeroData");
+        HeroDic = heroDataLoader.MakeDict();
+        
         MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         NpcDic = LoadJson<Data.NpcDataLoader, int, Data.NpcData>("NpcData").MakeDict();
         SkillDic = LoadJson<Data.SkillDataLoader, int, Data.SkillData>("SkillData").MakeDict();
@@ -45,6 +47,13 @@ public class DataManager
             ItemDic.Add(item.Key, item.Value);
         foreach (var item in ConsumableDic)
             ItemDic.Add(item.Key, item.Value);
+
+        // Validation
+        if (heroDataLoader.Validate())
+            Debug.Log("Hero Data Text Validate");
+        else
+            Debug.Log("Hero Data Text Missing");
+        
     }
 
     private Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

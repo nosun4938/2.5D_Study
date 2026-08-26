@@ -4,6 +4,16 @@
       "DataID": "Player",
       "KOR": "플레이어",
       "ENG": "Player"
+    },
+    {
+      "DataID": "JoannaText",
+      "KOR": "조안나",
+      "ENG": "Joanna"
+    },
+    {
+      "DataID": "JoannaDescriptionTexttest",
+      "KOR": "조안나, 여검사",
+      "ENG": "Joanna, Swordwoman"
     }
   ]
 }

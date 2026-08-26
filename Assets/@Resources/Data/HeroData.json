@@ -2,7 +2,8 @@
   "heroes": [
     {
       "DataID": 202001,
-      "DescriptionTextID": "Player",
+      "Name": "JoannaText",
+      "DescriptionTextID": "JoannaDescriptionText",
       "IconImage": "null",
       "PrefabLabel": "Player",
       "AnimatorName": "PlayerAnimation",
@@ -49,7 +50,8 @@
     },
     {
       "DataID": 202002,
-      "DescriptionTextID": "Player",
+      "Name": "JoannaText",
+      "DescriptionTextID": "JoannaDescriptionText",
       "IconImage": "null",
       "PrefabLabel": "Player",
       "AnimatorName": "PlayerAnimation",
@@ -96,7 +98,8 @@
     },
     {
       "DataID": 202003,
-      "DescriptionTextID": "Player",
+      "Name": "JoannaText",
+      "DescriptionTextID": "JoannaDescriptionText",
       "IconImage": "null",
       "PrefabLabel": "Player",
       "AnimatorName": "PlayerAnimation",

@@ -22,7 +22,7 @@
     },
     {
       "DataID": 100002,
-      "Name": "웨이포인트",
+      "Name": "퀘스트",
       "DescriptionTextID": "Dummy",
       "NpcType": "Quest",
       "PrefabLabel": "Npc",

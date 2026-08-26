@@ -2,6 +2,7 @@
   "monsters": [
     {
       "DataID": 300001,
+      "Name": "goblin",
       "DescriptionTextID": "Monster",
       "IconImage": "null",
       "PrefabLabel": "Monster",
