@@ -169,29 +169,31 @@ public class UIManager
         return popup as T;
     }
 
-    public void ClosePopupUI(UI_Popup popup)
+    public bool ClosePopupUI(UI_Popup popup)
     {
         if (_popupStack.Count == 0)
-            return;
+            return false;
 
         if (_popupStack.Peek() != popup)
         {
             Debug.Log("Close Popup Failed!");
-            return;
+            return false;
         }
 
         ClosePopupUI();
+        return true;
     }
 
-    public void ClosePopupUI()
+    public bool ClosePopupUI()
     {
         if (_popupStack.Count == 0)
-            return;
+            return false;
 
         UI_Popup popup = _popupStack.Pop();
         popup.gameObject.SetActive(false);
         //Managers.Resource.Destroy(popup.gameObject);
         _order--;
+        return true;
     }
 
     public void CloseAllPopupUI()

@@ -49,10 +49,8 @@ public class DataManager
             ItemDic.Add(item.Key, item.Value);
 
         // Validation
-        if (heroDataLoader.Validate())
-            Debug.Log("Hero Data Text Validate");
-        else
-            Debug.Log("Hero Data Text Missing");
+        if (!heroDataLoader.Validate())
+            Debug.Log("Hero Data Text Missing"); // 배포 빌드에선 크래시 내기
         
     }
 

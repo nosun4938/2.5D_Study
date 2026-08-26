@@ -110,7 +110,6 @@ public static class Define
         Jump,
         Dash,
         Interact,
-        ESC,
     }
 
     public enum ESkillType

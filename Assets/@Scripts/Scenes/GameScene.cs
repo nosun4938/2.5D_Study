@@ -15,12 +15,14 @@ public class GameScene : BaseScene
 
         SceneType = EScene.GameScene;
 
+        // InputManager
+        Managers.Input.Init();
+
         // Map
         Managers.Map.LoadMap("TestMap");
         Managers.Map.StageTransition.SetInfo();
 
         // Hero
-        Debug.Log("Hero?");
         Hero player = Managers.Object.Spawn<Hero>(new Vector3(0, 0, 0), 202001);
 
         // Camera

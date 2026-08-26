@@ -13,6 +13,9 @@ public class Hero : Creature
 {
     public Data.HeroData HeroData { get; private set; }
 
+    public PlayerInput PlayerInput { get; private set; }
+    InputActionMap playerMap;
+
     #region Variables
     public bool HasJumped { get; set; } = false;
     public bool IsJumpPressed { get; set; } = false;
@@ -40,6 +43,10 @@ public class Hero : Creature
         // Layer
         gameObject.layer = LayerMask.NameToLayer("Player");
         ObjectType = EObjectType.Hero;
+
+        // InputSystem
+        PlayerInput = gameObject.GetComponent<PlayerInput>();
+        playerMap = PlayerInput.actions.FindActionMap("Player");
 
         // StateMachine
         _stateMachine = new HeroStateMachine(this);
@@ -111,14 +118,6 @@ public class Hero : Creature
             BufferInput(EKeySlot.Interact);
         }
     }
-
-    public void OnESC(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            BufferInput(EKeySlot.ESC);
-        }
-    }
     #endregion
 
     #region Input Buffering
@@ -175,11 +174,6 @@ public class Hero : Creature
                 return;
             
             NearbyNpc.OnClickEvent();
-        }
-
-        if (slot == EKeySlot.ESC)
-        {
-            Managers.UI.ClosePopupUI();
         }
     }
     public bool TryConsumeBufferInput(Func<EKeySlot, bool> canUse, out EKeySlot slot)
@@ -249,6 +243,17 @@ public class Hero : Creature
         {
             CoyoteTimeCounter -= Time.deltaTime;
         }
+    }
+    #endregion
+    
+    #region Input Lock 
+    public void PlayerInputLock()
+    {
+        playerMap.Disable();
+    }
+    public void PlayerInputUnlock()
+    {
+        playerMap.Disable();
     }
     #endregion
 }
