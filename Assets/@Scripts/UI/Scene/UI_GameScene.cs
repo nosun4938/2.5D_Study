@@ -5,15 +5,13 @@ public class UI_GameScene : UI_Scene
 {
     enum Buttons
     {
-        GoldPlusButton,
-        DiaPlusButton,
+        MoneyPlusButton,
         HeroesListButton,
         SetHeroesButton,
         SettingButton,
         InventoryButton,
         WorldMapButton,
         QuestButton,
-        ChallengeButton,
         PortalButton,
         CampButton,
         CheatButton,
@@ -22,12 +20,7 @@ public class UI_GameScene : UI_Scene
     enum Texts
     {
         LevelText,
-        BattlePowerText,
-        GoldCountText,
-        DiaCountText,
-        MeatCountText,
-        WoodCountText,
-        MineralCountText,
+        MoneyCountText,
     }
 
     public override bool Init()
@@ -38,15 +31,13 @@ public class UI_GameScene : UI_Scene
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        GetButton((int)Buttons.GoldPlusButton).gameObject.BindEvent(OnClickGoldPlusButton);
-        GetButton((int)Buttons.DiaPlusButton).gameObject.BindEvent(OnClickDiaPlusButton);
+        GetButton((int)Buttons.MoneyPlusButton).gameObject.BindEvent(OnClickGoldPlusButton);
         GetButton((int)Buttons.HeroesListButton).gameObject.BindEvent(OnClickHeroesListButton);
         GetButton((int)Buttons.SetHeroesButton).gameObject.BindEvent(OnClickSetHeroesButton);
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
         GetButton((int)Buttons.InventoryButton).gameObject.BindEvent(OnClickInventoryButton);
         GetButton((int)Buttons.WorldMapButton).gameObject.BindEvent(OnClickWorldMapButton);
         GetButton((int)Buttons.QuestButton).gameObject.BindEvent(OnClickQuestButton);
-        GetButton((int)Buttons.ChallengeButton).gameObject.BindEvent(OnClickChallengeButton);
         GetButton((int)Buttons.PortalButton).gameObject.BindEvent(OnClickPortalButton);
         GetButton((int)Buttons.CampButton).gameObject.BindEvent(OnClickCampButton);
         GetButton((int)Buttons.CheatButton).gameObject.BindEvent(OnClickCheatButton);
@@ -68,7 +59,7 @@ public class UI_GameScene : UI_Scene
             float fps = 1.0f / Time.deltaTime;
             float ms = Time.deltaTime * 1000.0f;
             string text = string.Format("{0:N1} FPS ({1:N1}ms)", fps, ms);
-            GetText((int)Texts.GoldCountText).text = text;
+            GetText((int)Texts.MoneyCountText).text = text;
 
             _elapsedTime = 0;
         }
@@ -88,11 +79,6 @@ public class UI_GameScene : UI_Scene
     void OnClickGoldPlusButton(PointerEventData evt)
     {
         Debug.Log("OnOnClickGoldPlusButton");
-    }
-
-    void OnClickDiaPlusButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickDiaPlusButton");
     }
 
     void OnClickHeroesListButton(PointerEventData evt)
@@ -127,11 +113,6 @@ public class UI_GameScene : UI_Scene
         Debug.Log("OnClickQuestButton");
     }
 
-    void OnClickChallengeButton(PointerEventData evt)
-    {
-        Debug.Log("OnOnClickChallengeButton");
-    }
-
     void OnClickCampButton(PointerEventData evt)
     {
         Debug.Log("OnClickCampButton");
@@ -149,6 +130,6 @@ public class UI_GameScene : UI_Scene
 
     public void RefreshMoneyText()
     {
-        GetText((int)Texts.WoodCountText).text = Managers.Game.Money.ToString();
+        GetText((int)Texts.MoneyCountText).text = Managers.Game.Money.ToString();
     }
 }

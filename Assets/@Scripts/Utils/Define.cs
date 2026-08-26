@@ -80,7 +80,7 @@ public static class Define
 
         Skill,
 
-        HitStun,
+        Hitstun,
         Stagger,
         Airborne
     }
@@ -103,12 +103,14 @@ public static class Define
         Cope,
     }
 
-    public enum ESkillSlot
+    public enum EKeySlot
     {
         None,
         NormalAtk,
         Jump,
         Dash,
+        Interact,
+        ESC,
     }
 
     public enum ESkillType

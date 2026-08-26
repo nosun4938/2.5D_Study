@@ -290,7 +290,7 @@ public class Creature : BaseObject
             case ECreatureState.Skill:
                 // Skill Animation은 SkillBase의 DoSkill에서 실행
                 break;
-            case ECreatureState.HitStun:
+            case ECreatureState.Hitstun:
                 PlayAnimation(AnimName.HITSTUN);
                 PlayingSkill.CancelSkill();
                 break;

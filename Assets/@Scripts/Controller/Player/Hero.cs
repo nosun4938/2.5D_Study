@@ -19,6 +19,7 @@ public class Hero : Creature
 
     public float CoyoteTimeCounter { get; set; }
     public float JumpBufferTimeCounter { get; set; }
+    public Npc NearbyNpc { get; set; }
     #endregion
 
     #region StateMachine
@@ -85,7 +86,7 @@ public class Hero : Creature
         if (context.performed)
         {
             IsJumpPressed = true;
-            BufferInput(ESkillSlot.Jump);
+            BufferInput(EKeySlot.Jump);
         }
         else if (context.canceled)
         {
@@ -95,17 +96,28 @@ public class Hero : Creature
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        BufferInput(ESkillSlot.Dash);
+        BufferInput(EKeySlot.Dash);
     }
 
     public void OnNormalAtk(InputAction.CallbackContext context)
     {
-        BufferInput(ESkillSlot.NormalAtk);
+        BufferInput(EKeySlot.NormalAtk);
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
+        if (context.performed)
+        {
+            BufferInput(EKeySlot.Interact);
+        }
+    }
 
+    public void OnESC(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            BufferInput(EKeySlot.ESC);
+        }
     }
     #endregion
 
@@ -113,14 +125,14 @@ public class Hero : Creature
     public float _lastSkillTime { get; set; }
     public struct BufferedInput
     {
-        public ESkillSlot Slot;
+        public EKeySlot Slot;
         public float Time;
     }
 
     private List<BufferedInput> _inputBuffer = new List<BufferedInput>();
     private float _inputBufferTime = 0.2f;
 
-    public void BufferInput(ESkillSlot slot)
+    public void BufferInput(EKeySlot slot)
     {
         _inputBuffer.Add(new BufferedInput
         {
@@ -130,31 +142,49 @@ public class Hero : Creature
     }
     public void HandleBufferedInput()
     {
-        if (TryConsumeBufferInput(CanUse, out ESkillSlot slot) == false)
+        if (TryConsumeBufferInput(CanUse, out EKeySlot slot) == false)
             return;
 
-        if (slot == ESkillSlot.Jump)
+        if (slot == EKeySlot.Jump)
         {
+            HasJumped = true;
             ChangeReason = EStateChangeReason.Jump;
             _stateMachine.ChangeState(_airState);
             return;
         }
 
-        if (slot == ESkillSlot.Dash)
+        if (slot == EKeySlot.Dash)
         {
             //_stateMachine.ChangeState(_dashState);
             return;
         }
 
-        if (slot == ESkillSlot.NormalAtk)
+        if (slot == EKeySlot.NormalAtk)
         {
             ChangeReason = EStateChangeReason.NormalAtk;
             _stateMachine.ChangeState(_groundSkillState);
         }
+
+        if (slot == EKeySlot.Interact)
+        {
+            if (NearbyNpc == null)
+                return;
+            if (NearbyNpc.Interaction == null)
+                return;
+            if (NearbyNpc.Interaction.CanInteract() == false)
+                return;
+            
+            NearbyNpc.OnClickEvent();
+        }
+
+        if (slot == EKeySlot.ESC)
+        {
+            Managers.UI.ClosePopupUI();
+        }
     }
-    public bool TryConsumeBufferInput(Func<ESkillSlot, bool> canUse, out ESkillSlot slot)
+    public bool TryConsumeBufferInput(Func<EKeySlot, bool> canUse, out EKeySlot slot)
     {
-        slot = ESkillSlot.None;
+        slot = EKeySlot.None;
 
         for (int i = 0; i < _inputBuffer.Count; i++)
         {
@@ -180,22 +210,32 @@ public class Hero : Creature
         return false;
     }
 
-    public bool CanUse(ESkillSlot slot)
+    public bool CanUse(EKeySlot slot)
     {
-        if (slot == ESkillSlot.Jump)
-            return CanJump();
-        if (slot == ESkillSlot.Dash)
-            return false;
-        if (slot == ESkillSlot.NormalAtk)
-            return (CanJump() && CreatureState != ECreatureState.Skill);
-
-        return true;
+        switch (slot)
+        {
+            case EKeySlot.Jump:
+                return CanJump();
+            case EKeySlot.NormalAtk:
+            case EKeySlot.Interact:
+                return CanGroundAction();
+            default:
+                return true;
+        }
     }
 
+    public bool CanGroundAction()
+    {
+        return (IsGrounded
+            && CreatureState != ECreatureState.Skill
+            && CreatureState != ECreatureState.Hitstun);
+    }
     public bool CanJump()
     {
-        return CoyoteTimeCounter > 0f &&
-            HasJumped == false;
+        return (CoyoteTimeCounter > 0f
+            && HasJumped == false
+            && CreatureState != ECreatureState.Skill
+            && CreatureState != ECreatureState.Hitstun);
     }
 
     public void HandleCoyoteTime()

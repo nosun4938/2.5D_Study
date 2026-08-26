@@ -25,10 +25,10 @@ public class SkillComponent : InitBase
     {
         _owner = owner;
 
-        AddSkill(creatureData.NormalAtkID, ESkillSlot.NormalAtk);
+        AddSkill(creatureData.NormalAtkID, EKeySlot.NormalAtk);
     }
 
-    public void AddSkill(int skillTemplateID, Define.ESkillSlot skillSlot)
+    public void AddSkill(int skillTemplateID, EKeySlot skillSlot)
     {
         if (skillTemplateID == 0)
             return;
@@ -49,7 +49,7 @@ public class SkillComponent : InitBase
 
         switch (skillSlot)
         {
-            case Define.ESkillSlot.NormalAtk:
+            case EKeySlot.NormalAtk:
                 NormalAtk = skill;
                 break;
         }

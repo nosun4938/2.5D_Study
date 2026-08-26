@@ -90,6 +90,10 @@ public class Npc : BaseObject
             return;
 
         inInteractionBox = true;
+        
+        Hero hero = collider.GetComponent<Hero>();
+        if (hero != null)
+            hero.NearbyNpc = this;
     }
 
     private void OnTriggerExit(Collider collider)
@@ -98,6 +102,10 @@ public class Npc : BaseObject
             return;
 
         inInteractionBox = false;
+
+        Hero hero = collider.GetComponent<Hero>();
+        if (hero != null && hero.NearbyNpc == this)
+            hero.NearbyNpc = null;
     }
 
     public virtual void OnClickEvent()
