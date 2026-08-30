@@ -196,8 +196,8 @@ public class Creature : BaseObject
         Hp = Mathf.Clamp(Hp, 0, MaxHp);
         Debug.Log($"{this.name} Hp: {Hp}");
 
+        // Damage 폰트
         Managers.Object.ShowDamageFont(CenterPosition + Vector3.up * 10, finalDamage, transform, false);
-
         if (Hp <= 0)
         {
             OnDead(attacker, skill);

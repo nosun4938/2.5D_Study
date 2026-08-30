@@ -13,7 +13,7 @@ public class InventoryManager
     Dictionary<int, Item> EquippedItems = new Dictionary<int, Item>();
     List<Item> InventoryItems = new List<Item>();
 
-    /*public Item MakeItem(int itemTemplateID, int count = 1)
+    public Item MakeItem(int itemTemplateID, int count = 1)
     {
         int itemDbID = Managers.Game.GenerateItemDbID();
 
@@ -30,7 +30,7 @@ public class InventoryManager
         };
 
         return AddItem(saveData);
-    }*/
+    }
 
     public Item AddItem(ItemSaveData itemInfo)
     {

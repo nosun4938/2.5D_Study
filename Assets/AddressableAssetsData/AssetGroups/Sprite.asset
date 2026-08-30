@@ -15,8 +15,14 @@ MonoBehaviour:
   m_GroupName: Sprite
   m_GUID: a773c6cda0ce0924a98716c5ee7fbd57
   m_SerializeEntries:
+  - m_GUID: 61b26f4d1abd2b649859adae2dfe7647
+    m_Address: Object_Book.Sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: deaabd1258f5ee44fa9b1068c6caa448
-    m_Address: Object_Coin
+    m_Address: Object_Coin.Sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

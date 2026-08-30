@@ -38,7 +38,7 @@ public class Hero_Air : HeroStateBase
     }
 
     #region Jump
-    const float _fullJumpTime = 0.35f;
+    const float _fullJumpTime = 0.4f;
     float _timer = 0f;
     private void EnterJump()
     {

@@ -71,6 +71,9 @@ public class UI_WaypointPopup : UI_Popup
                 _items[i].gameObject.SetActive(false);
             }
         }
+
+        if (stages.Count > 0)
+            EventSystem.current.SetSelectedGameObject(_items[0].gameObject);
     }
 
     void OnClickCloseButton(PointerEventData evt)

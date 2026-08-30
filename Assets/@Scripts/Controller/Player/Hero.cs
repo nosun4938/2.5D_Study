@@ -253,7 +253,7 @@ public class Hero : Creature
     }
     public void PlayerInputUnlock()
     {
-        playerMap.Disable();
+        playerMap.Enable();
     }
     #endregion
 }

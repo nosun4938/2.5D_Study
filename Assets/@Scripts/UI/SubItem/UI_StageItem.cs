@@ -1,11 +1,17 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UI_StageItem : UI_Base
 {
     private Stage _owner;
     public event Action OnCloseItem;
+
+    enum Buttons
+    {
+
+    }
 
     enum Texts
     {
@@ -19,6 +25,7 @@ public class UI_StageItem : UI_Base
 
         BindTexts(typeof(Texts));
 
+        gameObject.GetOrAddComponent<Selectable>();
         gameObject.BindEvent(OnClickStageItem);
 
         Refresh();

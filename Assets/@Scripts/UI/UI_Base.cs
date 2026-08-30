@@ -67,14 +67,6 @@ public class UI_Base : InitBase
                 evt.OnClickHandler -= action;
                 evt.OnClickHandler += action;
                 break;
-            case EUIEvent.PointerDown:
-                evt.OnPointerDownHandler -= action;
-                evt.OnPointerDownHandler += action;
-                break;
-            case EUIEvent.PointerUp:
-                evt.OnPointerUpHandler -= action;
-                evt.OnPointerUpHandler += action;
-                break;
             case EUIEvent.Drag:
                 evt.OnDragHandler -= action;
                 evt.OnDragHandler += action;

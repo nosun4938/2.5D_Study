@@ -3,24 +3,27 @@ using UnityEngine.EventSystems;
 
 public class UI_GameScene : UI_Scene
 {
+    enum Images
+    {
+        Portrait,
+        SubHeroIcon,
+        MoneyIcon,
+        AnnouncementBox,
+        SkillAIcon,
+        SkillBIcon,
+    }
+    
     enum Buttons
     {
-        MoneyPlusButton,
+        InventroyButton,
         HeroesListButton,
-        SetHeroesButton,
-        SettingButton,
-        InventoryButton,
-        WorldMapButton,
-        QuestButton,
-        PortalButton,
-        CampButton,
-        CheatButton,
     }
 
     enum Texts
     {
-        LevelText,
         MoneyCountText,
+        FpsText,
+        AnnounceText,
     }
 
     public override bool Init()
@@ -28,19 +31,12 @@ public class UI_GameScene : UI_Scene
         if (base.Init() == false)
             return false;
 
+        BindImages(typeof(Images));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        GetButton((int)Buttons.MoneyPlusButton).gameObject.BindEvent(OnClickGoldPlusButton);
+        GetButton((int)Buttons.InventroyButton).gameObject.BindEvent(OnClickInventroyButton);
         GetButton((int)Buttons.HeroesListButton).gameObject.BindEvent(OnClickHeroesListButton);
-        GetButton((int)Buttons.SetHeroesButton).gameObject.BindEvent(OnClickSetHeroesButton);
-        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSettingButton);
-        GetButton((int)Buttons.InventoryButton).gameObject.BindEvent(OnClickInventoryButton);
-        GetButton((int)Buttons.WorldMapButton).gameObject.BindEvent(OnClickWorldMapButton);
-        GetButton((int)Buttons.QuestButton).gameObject.BindEvent(OnClickQuestButton);
-        GetButton((int)Buttons.PortalButton).gameObject.BindEvent(OnClickPortalButton);
-        GetButton((int)Buttons.CampButton).gameObject.BindEvent(OnClickCampButton);
-        GetButton((int)Buttons.CheatButton).gameObject.BindEvent(OnClickCheatButton);
 
         Refresh();
 
@@ -59,7 +55,11 @@ public class UI_GameScene : UI_Scene
             float fps = 1.0f / Time.deltaTime;
             float ms = Time.deltaTime * 1000.0f;
             string text = string.Format("{0:N1} FPS ({1:N1}ms)", fps, ms);
-            GetText((int)Texts.MoneyCountText).text = text;
+            GetText((int)Texts.FpsText).text = text;
+
+            GetText((int)Texts.MoneyCountText).text = "";
+
+
 
             _elapsedTime = 0;
         }
@@ -74,11 +74,8 @@ public class UI_GameScene : UI_Scene
     {
         if (_init == false)
             return;
-    }
 
-    void OnClickGoldPlusButton(PointerEventData evt)
-    {
-        Debug.Log("OnOnClickGoldPlusButton");
+        //GetImage((int)Images.SubHeroIcon).sprite = Managers.Resource.Load<Sprite>(Managers.Data.HeroDic[_heroDataId].IconImage);
     }
 
     void OnClickHeroesListButton(PointerEventData evt)
@@ -88,44 +85,9 @@ public class UI_GameScene : UI_Scene
         popup.SetInfo();
     }
 
-    void OnClickSetHeroesButton(PointerEventData evt)
+    void OnClickInventroyButton(PointerEventData evt)
     {
-        Debug.Log("OnClickSetHeroesButton");
-    }
-
-    void OnClickSettingButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickSettingButton");
-    }
-
-    void OnClickInventoryButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickInventoryButton");
-    }
-
-    void OnClickWorldMapButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickWorldMapButton");
-    }
-
-    void OnClickQuestButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickQuestButton");
-    }
-
-    void OnClickCampButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickCampButton");
-    }
-
-    void OnClickPortalButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickPortalButton");
-    }
-
-    void OnClickCheatButton(PointerEventData evt)
-    {
-        Debug.Log("OnClickCheatButton");
+        Debug.Log("OnClickInventroyButton");
     }
 
     public void RefreshMoneyText()

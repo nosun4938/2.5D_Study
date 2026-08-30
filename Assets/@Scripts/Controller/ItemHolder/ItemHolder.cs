@@ -22,7 +22,7 @@ public class ItemHolder : BaseObject
     public void SetInfo(int itemHolderID, int itemDataID, Vector3 pos)
     {
         ItemData = Managers.Data.ItemDic[itemDataID];
-        SpriteRenderer.sprite = Managers.Resource.Load<Sprite>("Object_Coin.sprite");
+        SpriteRenderer.sprite = Managers.Resource.Load<Sprite>("Object_Book.Sprite");
         _parabolaMotion.SetInfo(transform.position, pos, endCallback: Arrived);
     }
 

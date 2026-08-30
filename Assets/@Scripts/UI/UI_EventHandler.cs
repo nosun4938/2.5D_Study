@@ -5,11 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler, ISubmitHandler
 {
     public event Action<PointerEventData> OnClickHandler = null;
-    public event Action<PointerEventData> OnPointerDownHandler = null;
-    public event Action<PointerEventData> OnPointerUpHandler = null;
     public event Action<PointerEventData> OnDragHandler = null;
 
     public void OnPointerClick(PointerEventData eventData)
@@ -17,18 +15,13 @@ public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerDown
         OnClickHandler?.Invoke(eventData);
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        OnPointerDownHandler?.Invoke(eventData);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        OnPointerUpHandler?.Invoke(eventData);
-    }
-
     public void OnDrag(PointerEventData eventData)
     {
         OnDragHandler?.Invoke(eventData);
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        OnClickHandler?.Invoke(eventData as PointerEventData);
     }
 }

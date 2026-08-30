@@ -166,6 +166,8 @@ public class UIManager
         popup.transform.SetParent(Root.transform);
         popup.gameObject.SetActive(true);
 
+        Managers.Input.PlayerInputLock();
+
         return popup as T;
     }
 
@@ -193,6 +195,10 @@ public class UIManager
         popup.gameObject.SetActive(false);
         //Managers.Resource.Destroy(popup.gameObject);
         _order--;
+
+        if (_popupStack.Count == 0)
+            Managers.Input.PlayerInputUnlock();
+
         return true;
     }
 

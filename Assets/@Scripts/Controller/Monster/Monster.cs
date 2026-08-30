@@ -65,6 +65,7 @@ public class Monster : Creature
     #region Battle
     public override void OnDamaged(BaseObject attacker, SkillBase skill)
     {
+        LookRight = attacker.transform.position.x > transform.position.x;
         base.OnDamaged(attacker, skill);
     }
 
